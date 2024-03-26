@@ -71,7 +71,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form th:action="@{/student/add}"
+                          th:object="${student}"
+                          method="post">
                         <div class="mb-3">
                             <label for="studentId" class="form-label">Student ID</label>
                             <input type="text" class="form-control" id="studentId">
