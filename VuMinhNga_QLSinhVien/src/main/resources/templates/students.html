@@ -71,8 +71,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/student/add}"
-                          th:object="${student}"
+                    <form th:action="@{/add-student}"
+                          th:object="${students}"
                           method="post">
                         <div class="mb-3">
                             <label for="studentId" class="form-label">Student ID</label>
@@ -92,6 +92,7 @@
             </div>
         </div>
     </div>
+
 
 </div>
 </body>

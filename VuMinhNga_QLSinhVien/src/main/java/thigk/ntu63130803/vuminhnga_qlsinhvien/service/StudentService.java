@@ -5,7 +5,6 @@ package thigk.ntu63130803.vuminhnga_qlsinhvien.service;
  * @author TaosDev
  */
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import thigk.ntu63130803.vuminhnga_qlsinhvien.models.Student;
 
@@ -16,12 +15,6 @@ import java.util.Optional;
 @Service
 public class StudentService {
    private List<Student> students = new ArrayList<>();
-
-//   public Page<Student> getAllStudents(Pageable pageable) {
-//      int start = (int) pageable.getOffset();
-//      int end = Math.min((start + pageable.getPageSize()), students.size());
-//      return new PageImpl<>(students.subList(start, end), pageable, students.size());
-//   }
 
    public void initStudents() {
       List<Student> students = new ArrayList<>();
@@ -51,8 +44,7 @@ public class StudentService {
       return students;
    }
 
-   public Student addStudent(Student student) {
+   public void addStudent(Student student) {
       students.add(student);
-      return student;
    }
 }
