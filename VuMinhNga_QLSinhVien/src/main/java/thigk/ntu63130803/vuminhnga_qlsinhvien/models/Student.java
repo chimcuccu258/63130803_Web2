@@ -8,5 +8,5 @@ package thigk.ntu63130803.vuminhnga_qlsinhvien.models;
 public class Student {
     private String studentId;
     private String name;
-    private String gpa;
+    private Double gpa;
 }
