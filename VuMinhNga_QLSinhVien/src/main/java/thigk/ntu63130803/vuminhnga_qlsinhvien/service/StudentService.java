@@ -24,15 +24,18 @@ public class StudentService {
 //   }
 
    public void initStudents() {
-      for (int i = 1; i <= 10; i++) {
-         Student student = new Student();
-         student.setStudentId("S" + String.format("%03d", i));
-         student.setName("Student " + i);
-         double gpa = 3.5 + Math.random() * 1.5;
-         String formattedGpa = String.format("%.2f", gpa);
-         student.setGpa(Double.parseDouble(formattedGpa));
-         students.add(student);
-      }
+      List<Student> students = new ArrayList<>();
+      Student student1 = new Student("1", "Nguyen Van A", 3.5);
+      Student student2 = new Student("2", "Nguyen Van B", 3.0);
+      Student student3 = new Student("3", "Nguyen Van C", 2.5);
+      Student student4 = new Student("4", "Nguyen Van D", 2.0);
+      Student student5 = new Student("5", "Nguyen Van E", 1.5);
+      students.add(student1);
+      students.add(student2);
+      students.add(student3);
+      students.add(student4);
+      students.add(student5);
+      this.students = students;
    }
 
    public Optional<Student> findStudentById(String id) {
@@ -47,11 +50,6 @@ public class StudentService {
       public List<Student> getAllStudents() {
       return students;
    }
-//   public List<Student> getAllStudents(int page, int size) {
-//      int start = page * size;
-//      int end = Math.min(start + size, students.size());
-//      return students.subList(start, end);
-//   }
 
    public Student addStudent(Student student) {
       students.add(student);

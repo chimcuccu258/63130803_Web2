@@ -3,6 +3,7 @@ package thigk.ntu63130803.vuminhnga_qlsinhvien.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import thigk.ntu63130803.vuminhnga_qlsinhvien.service.StudentService;
 
@@ -20,15 +21,13 @@ public class HomeController {
       return "index";
    }
 
-//   @RequestMapping("/students")
-//   public String students() {
-//      return "students";
-//   }
-
    @GetMapping("/students")
    public String getStudents(Model model) {
       studentService.initStudents();
       model.addAttribute("students", studentService.getAllStudents());
       return "students";
    }
+
+
+
 }

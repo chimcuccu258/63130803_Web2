@@ -29,7 +29,7 @@
                     <a class="nav-link" href="#">Other</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
+            <form class="d-flex" role="search" action="/findStudentById">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
@@ -40,7 +40,7 @@
 <div class="container-fluid">
     <h3>Student List</h3>
     <div class="d-grid gap-2 d-md-block">
-        <button class="btn btn-primary" type="button">Add student</button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addStudentModal">Add student</button>
     </div>
     <table class="table table-hover">
         <thead>
@@ -48,6 +48,7 @@
             <th>Student ID</th>
             <th>Name</th>
             <th>GPA</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -55,37 +56,40 @@
             <td th:text="${student.studentId}"></td>
             <td th:text="${student.name}"></td>
             <td th:text="${student.gpa}"></td>
+            <td>
+                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+            </td>
         </tr>
         </tbody>
     </table>
 
-<!--    <nav aria-label="Page navigation example">-->
-<!--        <ul class="pagination justify-content-end">-->
-<!--            <li class="page-item disabled">-->
-<!--                <a class="page-link">Previous</a>-->
-<!--            </li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--            <li class="page-item">-->
-<!--                <a class="page-link" href="#">Next</a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </nav>-->
-
-<!--    <nav aria-label="Page navigation example">-->
-<!--        <ul class="pagination justify-content-end">-->
-<!--            <li class="page-item">-->
-<!--                <a class="page-link" th:href="@{'/students?page=' + (currentPage - 1)}">Previous</a>-->
-<!--            </li>-->
-<!--            <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}">-->
-<!--                <a class="page-link" th:href="@{'/students?page=' + pageNumber}" th:text="${pageNumber + 1}"></a>-->
-<!--            </li>-->
-<!--            <li class="page-item">-->
-<!--                <a class="page-link" th:href="@{'/students?page=' + (currentPage + 1)}">Next</a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </nav>-->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="studentId" class="form-label">Student ID</label>
+                            <input type="text" class="form-control" id="studentId">
+                        </div>
+                        <div class="mb-3">
+                            <label for="studentName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="studentName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="studentGPA" class="form-label">GPA</label>
+                            <input type="text" class="form-control" id="studentGPA">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 </body>
