@@ -47,4 +47,13 @@ public class StudentService {
    public void addStudent(Student student) {
       students.add(student);
    }
+
+   public void editStudent(Student editedStudent) {
+      for (int i = 0; i < students.size(); i++) {
+         if (students.get(i).getStudentId().equals(editedStudent.getStudentId())) {
+            students.set(i, editedStudent);
+            break;
+         }
+      }
+   }
 }

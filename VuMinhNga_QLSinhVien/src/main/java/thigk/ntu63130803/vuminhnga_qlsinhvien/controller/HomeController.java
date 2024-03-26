@@ -38,5 +38,9 @@ public class HomeController {
 
    }
 
-
+    @GetMapping("/edit-student")
+    public String editStudent(@ModelAttribute Student student, Model model) {
+        model.addAttribute("student", student);
+        return  "redirect:/students";
+    }
 }
