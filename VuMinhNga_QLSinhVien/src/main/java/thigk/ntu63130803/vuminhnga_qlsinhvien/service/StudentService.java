@@ -17,8 +17,14 @@ import java.util.Optional;
 public class StudentService {
    private List<Student> students = new ArrayList<>();
 
+//   public Page<Student> getAllStudents(Pageable pageable) {
+//      int start = (int) pageable.getOffset();
+//      int end = Math.min((start + pageable.getPageSize()), students.size());
+//      return new PageImpl<>(students.subList(start, end), pageable, students.size());
+//   }
+
    public void initStudents() {
-      for (int i = 1; i <= 20; i++) {
+      for (int i = 1; i <= 10; i++) {
          Student student = new Student();
          student.setStudentId("S" + String.format("%03d", i));
          student.setName("Student " + i);
@@ -38,9 +44,14 @@ public class StudentService {
       return Optional.empty();
    }
 
-   public List<Student> getAllStudents() {
+      public List<Student> getAllStudents() {
       return students;
    }
+//   public List<Student> getAllStudents(int page, int size) {
+//      int start = page * size;
+//      int end = Math.min(start + size, students.size());
+//      return students.subList(start, end);
+//   }
 
    public Student addStudent(Student student) {
       students.add(student);
