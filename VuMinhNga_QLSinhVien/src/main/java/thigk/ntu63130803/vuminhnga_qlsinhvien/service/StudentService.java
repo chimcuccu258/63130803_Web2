@@ -22,7 +22,9 @@ public class StudentService {
          Student student = new Student();
          student.setStudentId("S" + String.format("%03d", i));
          student.setName("Student " + i);
-         student.setGpa(3.5 + Math.random() * 1.5);
+         double gpa = 3.5 + Math.random() * 1.5;
+         String formattedGpa = String.format("%.2f", gpa);
+         student.setGpa(Double.parseDouble(formattedGpa));
          students.add(student);
       }
    }
