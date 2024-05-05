@@ -10,7 +10,5 @@ import org.springframework.stereotype.Repository;
 public class CustomerRepository {
     private final CustomerMapper customerMapper;
 
-    public Customer getUserByUsername(String username) {
-        return customerMapper.getUserByUsername(username);
-    }
+
 }

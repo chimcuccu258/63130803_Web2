@@ -13,8 +13,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
     private final CustomerRepository customerRepository;
 
-    @PostMapping("/getCustomer")
-    public Customer getCustomerByUsername(String username) {
-        return customerRepository.getUserByUsername(username);
-    }
 }
