@@ -3,11 +3,13 @@ package org.ngavm1.deliverysystem.controller;
 import lombok.RequiredArgsConstructor;
 import org.ngavm1.deliverysystem.exception.CustomerException;
 import org.ngavm1.deliverysystem.model.Customer;
+import org.ngavm1.deliverysystem.payload.request.RequestLogin;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.repository.CustomerRepository;
 import org.ngavm1.deliverysystem.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +25,9 @@ public class CustomerController {
         return customerService.findAllCustomer();
     }
 
-
+    @PostMapping("/login")
+    public ResponseEntity<ResponseModel> loginCustomer(@RequestBody RequestLogin requestLogin) throws CustomerException {
+        return customerService.loginCustomer(requestLogin.getEmail(), requestLogin.getPassword());
+    }
 
 }

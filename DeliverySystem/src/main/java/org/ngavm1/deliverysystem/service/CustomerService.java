@@ -6,4 +6,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface CustomerService {
     ResponseEntity<ResponseModel> findAllCustomer() throws CustomerException;
+    ResponseEntity<ResponseModel> loginCustomer(String email, String password) throws CustomerException;
 }
