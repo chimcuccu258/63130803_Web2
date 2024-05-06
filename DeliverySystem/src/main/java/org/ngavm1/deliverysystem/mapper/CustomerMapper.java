@@ -32,8 +32,6 @@ public interface CustomerMapper {
     @Update("UPDATE Customer SET fullName= #{fullName}, address= #{address}, phoneNumber= #{phoneNumber}, email= #{email}, password= #{password}, updated_at= #{updated_at} WHERE customerID= #{customerID}")
     int updateCustomer(Customer customer) throws CustomerException;
 
-
-
     @Update("UPDATE Customer SET avatar = #{mediaId} WHERE customerID = #{customerID}")
     int updateAvatar(Long customerID, Integer mediaId) throws CustomerException;
 

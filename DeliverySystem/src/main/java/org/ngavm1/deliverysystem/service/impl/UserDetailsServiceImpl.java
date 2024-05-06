@@ -22,17 +22,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // Get user from customerRepository
         try {
-            Customer customer = customerRepository.findCustomerByEmail(email);
-            if (customer == null) {
-                throw new UsernameNotFoundException("User not found with email: " + email);
-            }
-            String role = "ROLE_CUSTOMER";
 
-            return org.springframework.security.core.userdetails.User.builder()
-                    .username(customer.getEmail())
-                    .password(customer.getPassword())
-                    .roles(role)
-                    .build();
+            Customer customer = customerRepository.findCustomerByEmail(email);
+            if (customer != null) {
+                String role = "CUSTOMER";
+
+                return org.springframework.security.core.userdetails.User.builder()
+                        .username(customer.getEmail())
+                        .password(customer.getPassword())
+                        .roles(role)
+                        .build();
+            }
+
         } catch (CustomerException e) {
             // handle exception
             e.printStackTrace();
@@ -40,20 +41,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         // Get user from employeeRepository
         try {
+
             Employee employee = employeeRepository.findEmployeeByEmail(email);
             if (employee == null) {
                 throw new UsernameNotFoundException("User not found with email: " + email);
             }
-            String role = "ROLE_EMPLOYEE";
+            String role = "EMPLOYEE";
             return org.springframework.security.core.userdetails.User.builder()
                     .username(employee.getEmail())
                     .password(employee.getPassword())
                     .roles(role)
                     .build();
+
         } catch (EmployeeException e) {
             // handle exception
             e.printStackTrace();
         }
+
         throw new UsernameNotFoundException("User not found");
     }
 }

@@ -10,10 +10,10 @@ import java.util.Date;
 
 @Component
 public class JwtUtils {
-    @Value("${deliverySystem.app.jwtSecret}")
+    @Value("${security.jwt.secret}")
     private String jwtSecret;
 
-    @Value("${deliverySystem.app.jwtExpirationMs}")
+    @Value("${security.jwt.expirationMs}")
     private int jwtExpirationMs;
 
 
@@ -25,7 +25,7 @@ public class JwtUtils {
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
 
