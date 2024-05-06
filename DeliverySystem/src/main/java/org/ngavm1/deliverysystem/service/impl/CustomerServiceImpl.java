@@ -3,6 +3,7 @@ package org.ngavm1.deliverysystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.ngavm1.deliverysystem.exception.CustomerException;
 import org.ngavm1.deliverysystem.model.Customer;
+import org.ngavm1.deliverysystem.payload.request.RequestCustomerSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestLogin;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.repository.CustomerRepository;
@@ -42,4 +43,38 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerException(MessageStringResponse.CUSTOMER_NOT_FOUND);
         }
     }
+
+    @Override
+    public ResponseEntity<ResponseModel> findCustomerById(Long customerID) throws CustomerException {
+        Customer customer = customerRepository.findCustomerById(customerID);
+
+        if (customer != null) {
+            ResponseModel response = new ResponseModel(200, MessageStringResponse.SUCCESS, customer);
+            return ResponseEntity.ok().headers(new HttpHeaders()).body(response);
+        } else {
+            throw new CustomerException(MessageStringResponse.CUSTOMER_NOT_FOUND);
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseModel> createAccount(RequestCustomerSignup requestCustomerSignup) throws CustomerException {
+        if (customerRepository.existsByEmail(requestCustomerSignup.getEmail())) {
+            throw new CustomerException(MessageStringResponse.EMAIL_EXIST);
+        }
+
+        int result = customerRepository.createAccount(requestCustomerSignup);
+
+        if (result > 0) {
+            ResponseModel response = new ResponseModel(200, MessageStringResponse.SUCCESS, null);
+            return ResponseEntity.ok().headers(new HttpHeaders()).body(response);
+        } else {
+            throw new CustomerException(MessageStringResponse.FAILED_CREATE_ACCOUNT);
+        }
+    }
+
+    @Override
+    public boolean existsByEmail(String email) throws CustomerException {
+        return customerRepository.existsByEmail(email);
+    }
+
 }

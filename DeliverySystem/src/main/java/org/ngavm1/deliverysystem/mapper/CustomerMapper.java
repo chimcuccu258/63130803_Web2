@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Update;
 import org.ngavm1.deliverysystem.exception.CustomerException;
 import org.ngavm1.deliverysystem.model.Customer;
 import org.ngavm1.deliverysystem.payload.request.RequestChangePassword;
+import org.ngavm1.deliverysystem.payload.request.RequestCustomerSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestLogin;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -23,7 +24,7 @@ public interface CustomerMapper {
     Customer loginCustomer(RequestLogin requestLogin) throws CustomerException;
 
     @Insert("INSERT INTO Customer (fullName, address, phoneNumber, email, password, created_at, updated_at) VALUES (#{fullName}, #{address}, #{phoneNumber}, #{email}, #{password}, #{created_at}, #{updated_at})")
-    int createAccount(Customer customer) throws CustomerException;
+    int createAccount(RequestCustomerSignup requestCustomerSignup) throws CustomerException;
 
     @Update("UPDATE Customer SET fullName= #{fullName}, address= #{address}, phoneNumber= #{phoneNumber}, email= #{email}, password= #{password}, updated_at= #{updated_at} WHERE customerID= #{customerID}")
     int updateCustomer(Customer customer) throws CustomerException;
