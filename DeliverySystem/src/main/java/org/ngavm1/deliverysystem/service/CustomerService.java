@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 
 public interface CustomerService {
     ResponseEntity<ResponseModel> findAllCustomer() throws CustomerException;
-    ResponseEntity<ResponseModel> loginCustomer(String email, String password) throws CustomerException;
     ResponseEntity<ResponseModel> findCustomerById(Long customerID) throws CustomerException;
-    ResponseEntity<ResponseModel> createAccount(RequestCustomerSignup requestCustomerSignup) throws CustomerException;
+    ResponseEntity<ResponseModel> findCustomerByEmail(String email) throws CustomerException;
     boolean existsByEmail(String email) throws CustomerException;
+
 }

@@ -33,18 +33,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public ResponseEntity<ResponseModel> loginCustomer(String email, String password) throws CustomerException {
-        Customer customer = customerRepository.loginCustomer(new RequestLogin(email, password));
-
-        if (customer != null) {
-            ResponseModel response = new ResponseModel(200, MessageStringResponse.SUCCESS, customer);
-            return ResponseEntity.ok().headers(new HttpHeaders()).body(response);
-        } else {
-            throw new CustomerException(MessageStringResponse.CUSTOMER_NOT_FOUND);
-        }
-    }
-
-    @Override
     public ResponseEntity<ResponseModel> findCustomerById(Long customerID) throws CustomerException {
         Customer customer = customerRepository.findCustomerById(customerID);
 
@@ -57,18 +45,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public ResponseEntity<ResponseModel> createAccount(RequestCustomerSignup requestCustomerSignup) throws CustomerException {
-        if (customerRepository.existsByEmail(requestCustomerSignup.getEmail())) {
-            throw new CustomerException(MessageStringResponse.EMAIL_EXIST);
-        }
+    public ResponseEntity<ResponseModel> findCustomerByEmail(String email) throws CustomerException {
+        Customer customer = customerRepository.findCustomerByEmail(email);
 
-        int result = customerRepository.createAccount(requestCustomerSignup);
-
-        if (result > 0) {
-            ResponseModel response = new ResponseModel(200, MessageStringResponse.SUCCESS, null);
+        if (customer != null) {
+            ResponseModel response = new ResponseModel(200, MessageStringResponse.SUCCESS, customer);
             return ResponseEntity.ok().headers(new HttpHeaders()).body(response);
         } else {
-            throw new CustomerException(MessageStringResponse.FAILED_CREATE_ACCOUNT);
+            throw new CustomerException(MessageStringResponse.CUSTOMER_NOT_FOUND);
         }
     }
 

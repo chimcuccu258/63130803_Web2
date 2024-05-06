@@ -20,12 +20,12 @@ public class CustomerRepository {
         return customerMapper.findAllCustomer();
     }
 
-    public Customer loginCustomer(RequestLogin requestLogin) throws CustomerException {
-        return customerMapper.loginCustomer(requestLogin);
-    }
-
     public Customer findCustomerById(Long customerID) throws CustomerException {
         return customerMapper.findCustomerById(customerID);
+    }
+
+    public Customer findCustomerByEmail(String email) throws CustomerException {
+        return customerMapper.findCustomerByEmail(email);
     }
 
     public int createAccount(RequestCustomerSignup requestCustomerSignup) throws CustomerException {

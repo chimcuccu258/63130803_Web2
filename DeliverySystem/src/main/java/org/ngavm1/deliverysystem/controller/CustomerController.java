@@ -28,14 +28,5 @@ public class CustomerController {
         return customerService.findCustomerById(customerID);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<ResponseModel> loginCustomer(@RequestBody RequestLogin requestLogin) throws CustomerException {
-        return customerService.loginCustomer(requestLogin.getEmail(), requestLogin.getPassword());
-    }
-
-    @PostMapping("/signup")
-    public ResponseEntity<ResponseModel> createAccount(@RequestBody RequestCustomerSignup requestCustomerSignup) throws CustomerException {
-        return customerService.createAccount(requestCustomerSignup);
-    }
 
 }

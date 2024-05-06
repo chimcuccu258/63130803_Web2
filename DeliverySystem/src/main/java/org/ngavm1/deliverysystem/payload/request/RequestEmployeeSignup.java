@@ -12,9 +12,9 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestCustomerSignup {
+public class RequestEmployeeSignup {
     @Null
-    private Long customerID;
+    private Long EmployeeID;
     @Size(min = 3, max = 20)
     @NotNull
     @NotEmpty
@@ -40,4 +40,8 @@ public class RequestCustomerSignup {
     @NotEmpty
     @NotBlank
     private String password;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String role;
 }

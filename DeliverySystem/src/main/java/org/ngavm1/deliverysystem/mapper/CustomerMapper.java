@@ -17,20 +17,22 @@ import java.util.Optional;
 @Mapper
 public interface CustomerMapper {
 
+    @Select("SELECT * FROM Customer")
+    List<Customer> findAllCustomer() throws CustomerException;
+
     @Select("SELECT * FROM Customer WHERE customerID= #{customerID}")
     Customer findCustomerById(Long customerID) throws CustomerException;
 
-    @Select("SELECT * FROM Customer WHERE email= #{email} AND password= #{password}")
-    Customer loginCustomer(RequestLogin requestLogin) throws CustomerException;
+    @Select("SELECT * FROM Customer WHERE email= #{email}")
+    Customer findCustomerByEmail(String email) throws CustomerException;
 
-    @Insert("INSERT INTO Customer (fullName, address, phoneNumber, email, password, created_at, updated_at) VALUES (#{fullName}, #{address}, #{phoneNumber}, #{email}, #{password}, #{created_at}, #{updated_at})")
+    @Insert("INSERT INTO Customer (fullName, address, phoneNumber, email, password, created_at) VALUES (#{fullName}, #{address}, #{phoneNumber}, #{email}, #{password}, NOW())")
     int createAccount(RequestCustomerSignup requestCustomerSignup) throws CustomerException;
 
     @Update("UPDATE Customer SET fullName= #{fullName}, address= #{address}, phoneNumber= #{phoneNumber}, email= #{email}, password= #{password}, updated_at= #{updated_at} WHERE customerID= #{customerID}")
     int updateCustomer(Customer customer) throws CustomerException;
 
-    @Select("SELECT * FROM Customer")
-    List<Customer> findAllCustomer() throws CustomerException;
+
 
     @Update("UPDATE Customer SET avatar = #{mediaId} WHERE customerID = #{customerID}")
     int updateAvatar(Long customerID, Integer mediaId) throws CustomerException;
