@@ -6,8 +6,11 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.ngavm1.deliverysystem.exception.CustomerException;
 import org.ngavm1.deliverysystem.model.Customer;
+import org.ngavm1.deliverysystem.payload.request.RequestChangePassword;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface CustomerMapper {
@@ -24,5 +27,12 @@ public interface CustomerMapper {
     @Select("SELECT * FROM Customer")
     List<Customer> findAllCustomer() throws CustomerException;
 
+    @Update("UPDATE Customer SET avatar = #{mediaId} WHERE customerID = #{customerID}")
+    int updateAvatar(Long customerID, Integer mediaId) throws CustomerException;
 
+    @Update("UPDATE Customer SET password = #{newPassword} WHERE customerID = #{customerID}")
+    int updatePassword(RequestChangePassword request) throws CustomerException, SQLIntegrityConstraintViolationException;
+
+    @Select("SELECT 1 FROM Customer WHERE email = #{email} LIMIT 1")
+    Optional<Boolean> existsByEmail(String email) throws CustomerException;
 }
