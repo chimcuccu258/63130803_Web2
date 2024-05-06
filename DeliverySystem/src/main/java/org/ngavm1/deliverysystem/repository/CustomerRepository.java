@@ -5,6 +5,7 @@ import org.ngavm1.deliverysystem.exception.CustomerException;
 import org.ngavm1.deliverysystem.mapper.CustomerMapper;
 import org.ngavm1.deliverysystem.model.Customer;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class CustomerRepository {
     public List<Customer> findAllCustomer() throws CustomerException {
         return customerMapper.findAllCustomer();
     }
+
+
 
 
 }
