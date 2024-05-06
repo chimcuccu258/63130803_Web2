@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestCustomerSignup {
+public class RequestSupplierSignup {
     @Null
     private Long customerID;
     @Size(min = 3, max = 20)
@@ -21,8 +21,6 @@ public class RequestCustomerSignup {
     @NotBlank
     private String fullName;
     @NotNull
-    @NotEmpty
-    @NotBlank
     private Date dateOfBirth;
     @NotNull
     @NotEmpty

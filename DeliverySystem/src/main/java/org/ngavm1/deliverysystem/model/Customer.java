@@ -14,12 +14,8 @@ import java.util.Date;
 public class Customer {
     private Long customerID;
     private String fullName;
-    private Integer avatar;
-    private Date dateOfBirth;
     private String address;
     private String phoneNumber;
-    private String email;
-    private String password;
     private Date created_at;
     private Date updated_at;
 }

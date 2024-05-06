@@ -11,9 +11,10 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OderEmployee {
-    private Long orderID;
-    private Long employeeID;
+public class Salary {
+    private Long salaryID;
+    private Double hourlyWage;
+    private Integer workingHourPerWeek;
     private Date created_at;
     private Date updated_at;
 }

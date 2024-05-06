@@ -14,7 +14,15 @@ import java.util.Date;
 public class Order {
     private Long orderID;
     private Long customerID;
+    private Long storeID;
+    private Long employeeID;
+    private String origin;
+    private String destination;
+    private Date startShippingTime;
+    private Date estimatedTime;
+    private Double fee;
     private Boolean orderStatus;
+    private Boolean payingStatus;
     private Date created_at;
     private Date updated_at;
 }

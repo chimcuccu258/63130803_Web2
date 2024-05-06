@@ -3,8 +3,6 @@ package org.ngavm1.deliverysystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.ngavm1.deliverysystem.exception.CustomerException;
 import org.ngavm1.deliverysystem.model.Customer;
-import org.ngavm1.deliverysystem.payload.request.RequestCustomerSignup;
-import org.ngavm1.deliverysystem.payload.request.RequestLogin;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.repository.CustomerRepository;
 import org.ngavm1.deliverysystem.service.CustomerService;
@@ -32,33 +30,6 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    @Override
-    public ResponseEntity<ResponseModel> findCustomerById(Long customerID) throws CustomerException {
-        Customer customer = customerRepository.findCustomerById(customerID);
 
-        if (customer != null) {
-            ResponseModel response = new ResponseModel(200, MessageStringResponse.SUCCESS, customer);
-            return ResponseEntity.ok().headers(new HttpHeaders()).body(response);
-        } else {
-            throw new CustomerException(MessageStringResponse.CUSTOMER_NOT_FOUND);
-        }
-    }
-
-    @Override
-    public ResponseEntity<ResponseModel> findCustomerByEmail(String email) throws CustomerException {
-        Customer customer = customerRepository.findCustomerByEmail(email);
-
-        if (customer != null) {
-            ResponseModel response = new ResponseModel(200, MessageStringResponse.SUCCESS, customer);
-            return ResponseEntity.ok().headers(new HttpHeaders()).body(response);
-        } else {
-            throw new CustomerException(MessageStringResponse.CUSTOMER_NOT_FOUND);
-        }
-    }
-
-    @Override
-    public boolean existsByEmail(String email) throws CustomerException {
-        return customerRepository.existsByEmail(email);
-    }
 
 }

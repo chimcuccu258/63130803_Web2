@@ -2,11 +2,7 @@ package org.ngavm1.deliverysystem.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.ngavm1.deliverysystem.exception.CustomerException;
-import org.ngavm1.deliverysystem.model.Customer;
-import org.ngavm1.deliverysystem.payload.request.RequestCustomerSignup;
-import org.ngavm1.deliverysystem.payload.request.RequestLogin;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
-import org.ngavm1.deliverysystem.repository.CustomerRepository;
 import org.ngavm1.deliverysystem.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +19,10 @@ public class CustomerController {
         return customerService.findAllCustomer();
     }
 
-    @PostMapping("/find-by-id")
-    public ResponseEntity<ResponseModel> findCustomerById(@RequestParam Long customerID) throws CustomerException {
-        return customerService.findCustomerById(customerID);
-    }
+//    @PostMapping("/find-by-id")
+//    public ResponseEntity<ResponseModel> findCustomerById(@RequestParam Long customerID) throws CustomerException {
+//        return customerService.findCustomerById(customerID);
+//    }
 
 
 }

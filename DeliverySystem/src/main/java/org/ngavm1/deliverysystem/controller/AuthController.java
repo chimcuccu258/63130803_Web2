@@ -4,9 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.ngavm1.deliverysystem.exception.CustomerException;
 import org.ngavm1.deliverysystem.exception.EmployeeException;
-import org.ngavm1.deliverysystem.payload.request.RequestCustomerSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestLogin;
 import org.ngavm1.deliverysystem.payload.response.JwtResponse;
@@ -66,23 +64,27 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/customer-signup")
-    public ResponseEntity<ResponseModel> registerCustomer(@Valid @RequestBody RequestCustomerSignup request) throws CustomerException {
-        if (customerRepository.existsByEmail(request.getEmail())) {
-            return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.EMAIL_IS_ALREADY, null));
-        }
-
-        // Encode password
-        request.setPassword(encoder.encode(request.getPassword()));
-//        return customerRepository.createAccount(request);
-        int result = customerRepository.createAccount(request);
-
-        if (result > 0) {
-            return ResponseEntity.ok().body(new ResponseModel(200, MessageStringResponse.SUCCESS, null));
-        } else {
-            return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.ACCOUNT_CREATION_FAILED, null));
-        }
-    }
+//    @PostMapping("/supplier-signup")
+//    public ResponseEntity<ResponseModel> registerStore(@Valid @RequestBody RequestCustomerSignup requestCustomerSignup) throws CustomerException {
+//        try {
+//            if (customerRepository.existsByEmail(requestCustomerSignup.getEmail())) {
+//                return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.EMAIL_IS_ALREADY, null));
+//            }
+//
+//            // Encode password
+//            requestCustomerSignup.setPassword(encoder.encode(requestCustomerSignup.getPassword()));
+//
+//            int result = customerRepository.registerCustomer(requestCustomerSignup);
+//
+//            if (result > 0) {
+//                return ResponseEntity.ok().body(new ResponseModel(200, MessageStringResponse.SUCCESS, null));
+//            } else {
+//                return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.ACCOUNT_CREATION_FAILED, null));
+//            }
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(new ResponseModel(400, e.getMessage(), null));
+//        }
+//    }
 
     @PostMapping("/employee-signup")
     public ResponseEntity<ResponseModel> registerEmployee(@Valid @RequestBody RequestEmployeeSignup request) throws EmployeeException {

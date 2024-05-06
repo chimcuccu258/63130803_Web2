@@ -16,7 +16,7 @@ public class Employee {
     private String fullName;
     private Integer avatar;
     private Date dateOfBirth;
-    private String role;
+    private String address;
     private String phoneNumber;
     private String email;
     private String password;

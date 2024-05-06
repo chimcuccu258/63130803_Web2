@@ -11,11 +11,14 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vehicle {
-    private Long vehicleID;
-    private Boolean type;
-    private Double capacity;
-    private Boolean availabilityStatus;
+public class Supplier {
+    private Long supplierID;
+    private String supplierName;
+    private String supplierCode;
+    private String email;
+    private String address;
+    private String phoneNumber;
+    private String password;
     private Date created_at;
     private Date updated_at;
 }

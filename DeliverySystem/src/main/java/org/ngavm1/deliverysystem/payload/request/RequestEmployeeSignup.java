@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class RequestEmployeeSignup {
     @Null
-    private Long EmployeeID;
+    private Long employeeID;
     @Size(min = 3, max = 20)
     @NotNull
     @NotEmpty
@@ -40,8 +40,4 @@ public class RequestEmployeeSignup {
     @NotEmpty
     @NotBlank
     private String password;
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    private String role;
 }
