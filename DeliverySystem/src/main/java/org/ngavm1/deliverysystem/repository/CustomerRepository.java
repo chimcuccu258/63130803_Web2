@@ -16,7 +16,12 @@ public class CustomerRepository {
     public List<Customer> findAllCustomer() throws CustomerException {
         return customerMapper.findAllCustomer();
     }
-    public Customer findCustomerByPhoneNumber(Long phoneNumber) throws CustomerException {
+
+    public Customer findCustomerByFullName(String fullName) throws CustomerException {
+        return customerMapper.findCustomerByFullName(fullName);
+    }
+
+    public Customer findCustomerByPhoneNumber(String phoneNumber) throws CustomerException {
         return customerMapper.findCustomerByPhoneNumber(phoneNumber);
     }
 }

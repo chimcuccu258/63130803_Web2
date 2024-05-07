@@ -5,8 +5,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.ngavm1.deliverysystem.exception.EmployeeException;
+import org.ngavm1.deliverysystem.exception.SupplierException;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestLogin;
+import org.ngavm1.deliverysystem.payload.request.RequestSupplierSignup;
 import org.ngavm1.deliverysystem.payload.response.JwtResponse;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.repository.CustomerRepository;
@@ -65,7 +67,7 @@ public class AuthController {
     }
 
 //    @PostMapping("/supplier-signup")
-//    public ResponseEntity<ResponseModel> registerStore(@Valid @RequestBody RequestCustomerSignup requestCustomerSignup) throws CustomerException {
+//    public ResponseEntity<ResponseModel> registerStore(@Valid @RequestBody RequestSupplierSignup requestSupplierSignup) throws SupplierException {
 //        try {
 //            if (customerRepository.existsByEmail(requestCustomerSignup.getEmail())) {
 //                return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.EMAIL_IS_ALREADY, null));

@@ -12,7 +12,10 @@ public interface CustomerMapper {
     @Select("SELECT * FROM Customer")
     List<Customer> findAllCustomer() throws CustomerException;
 
+    @Select("SELECT * FROM Customer WHERE fullName = #{fullName}")
+    Customer findCustomerByFullName(String fullName) throws CustomerException;
+
     @Select("SELECT * FROM Customer WHERE phoneNumber = #{phoneNumber}")
-    Customer findCustomerByPhoneNumber(Long phoneNumber) throws CustomerException;
+    Customer findCustomerByPhoneNumber(String phoneNumber) throws CustomerException;
 
 }

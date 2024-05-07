@@ -10,13 +10,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDetails {
-private Long orderID;
+    private Long orderID;
     private Long productID;
-    private Integer quantity;
-    private Double price;
-    private Double total;
-    private String status;
-    private String note;
+    private Long productTypeID;
+    private Long nameOfProduct;
+    private Integer quantityOfProduct;
+    private Double priceOfProduct;
+    private String noteOfProduct;
     private String created_at;
     private String updated_at;
 }

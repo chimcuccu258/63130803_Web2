@@ -13,9 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestEmployeeSignup {
-    @Null
-    private Long employeeID;
-    @Size(min = 3, max = 20)
+    @Size(min = 5, max = 20)
     @NotNull
     @NotEmpty
     @NotBlank

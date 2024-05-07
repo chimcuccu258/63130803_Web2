@@ -13,15 +13,19 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestSupplierSignup {
-    @Null
-    private Long customerID;
-    @Size(min = 3, max = 20)
+    @Size(min = 5, max = 20)
     @NotNull
     @NotEmpty
     @NotBlank
-    private String fullName;
+    private String supplierName;
     @NotNull
-    private Date dateOfBirth;
+    @NotEmpty
+    @NotBlank
+    private String supplierCode;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String email;
     @NotNull
     @NotEmpty
     @NotBlank
@@ -30,10 +34,6 @@ public class RequestSupplierSignup {
     @NotEmpty
     @NotBlank
     private String phoneNumber;
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    private String email;
     @NotNull
     @NotEmpty
     @NotBlank
