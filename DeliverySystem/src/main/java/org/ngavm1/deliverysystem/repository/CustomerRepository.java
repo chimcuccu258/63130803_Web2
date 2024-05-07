@@ -24,4 +24,5 @@ public class CustomerRepository {
     public Customer findCustomerByPhoneNumber(String phoneNumber) throws CustomerException {
         return customerMapper.findCustomerByPhoneNumber(phoneNumber);
     }
+
 }

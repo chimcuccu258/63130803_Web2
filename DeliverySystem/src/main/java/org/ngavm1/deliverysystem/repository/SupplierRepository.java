@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.ngavm1.deliverysystem.exception.SupplierException;
 import org.ngavm1.deliverysystem.mapper.SupplierMapper;
 import org.ngavm1.deliverysystem.model.Supplier;
+import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Repository
@@ -31,5 +33,21 @@ public class SupplierRepository {
 
     public Supplier findSupplierByEmail(String email) throws SupplierException {
         return supplierMapper.findSupplierByEmail(email);
+    }
+
+    public int insertSupplier(Supplier Supplier) throws SupplierException {
+        return supplierMapper.insertSupplier(Supplier);
+    }
+
+    public int updateSupplier(Supplier Supplier) throws SupplierException {
+        return supplierMapper.updateSupplier(Supplier);
+    }
+
+    public boolean existsByEmail(String email) throws SupplierException {
+        return supplierMapper.existsByEmail(email).isPresent();
+    }
+
+    public int resetPassword(RequestResetPassword requestResetPassword) throws SupplierException, SQLIntegrityConstraintViolationException {
+        return supplierMapper.resetPassword(requestResetPassword);
     }
 }

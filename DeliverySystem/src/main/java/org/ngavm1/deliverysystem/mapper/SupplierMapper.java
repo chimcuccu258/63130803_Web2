@@ -4,9 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.ngavm1.deliverysystem.exception.EmployeeException;
 import org.ngavm1.deliverysystem.exception.SupplierException;
-import org.ngavm1.deliverysystem.model.Employee;
 import org.ngavm1.deliverysystem.model.Supplier;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
 
@@ -35,11 +33,11 @@ public interface SupplierMapper {
     Optional<Boolean> existsByEmail(String email) throws SupplierException;
 
     @Insert("INSERT INTO Supplier (supplierName, supplierCode, email, address, phoneNumber, password) VALUES (#{address}, #{supplierCode}, #{email}, #{address}, #{phoneNumber}, #{password})")
-    int insertEmployee(Supplier Supplier) throws SupplierException;
+    int insertSupplier(Supplier Supplier) throws SupplierException;
 
     @Update("UPDATE Supplier SET address = #{address}, phoneNumber = #{phoneNumber}, password = #{password} WHERE email = #{email}")
-    int updateEmployee(Supplier Supplier) throws SupplierException;
+    int updateSupplier(Supplier Supplier) throws SupplierException;
 
     @Update("UPDATE Supplier SET password = #{newPassword} WHERE supplierID = #{supplierID}")
-    int changePassword(RequestResetPassword requestResetPassword) throws SupplierException, SQLIntegrityConstraintViolationException;
+    int resetPassword(RequestResetPassword requestResetPassword) throws SupplierException, SQLIntegrityConstraintViolationException;
 }

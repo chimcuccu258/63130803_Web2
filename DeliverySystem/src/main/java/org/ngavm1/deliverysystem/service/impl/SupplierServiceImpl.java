@@ -1,11 +1,14 @@
 package org.ngavm1.deliverysystem.service.impl;
 
 import org.ngavm1.deliverysystem.exception.SupplierException;
+import org.ngavm1.deliverysystem.payload.request.RequestSupplierSignup;
+import org.ngavm1.deliverysystem.payload.request.RequestUpdate;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.service.SupplierService;
 import org.springframework.http.ResponseEntity;
 
 public class SupplierServiceImpl implements SupplierService {
+
     @Override
     public ResponseEntity<ResponseModel> findAllSupplier() throws SupplierException {
         return null;
@@ -28,6 +31,21 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public ResponseEntity<ResponseModel> findSupplierByEmail(String email) throws SupplierException {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<ResponseModel> insertSupplier(RequestSupplierSignup requestSupplierSignup) throws SupplierException {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<ResponseModel> updateSupplier(RequestUpdate requestUpdate) throws SupplierException {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<ResponseModel> resetPassword(RequestUpdate requestUpdate) throws SupplierException {
         return null;
     }
 }

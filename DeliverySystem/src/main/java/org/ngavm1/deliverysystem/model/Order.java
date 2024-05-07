@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.ngavm1.deliverysystem.utils.OrderStatus;
+import org.ngavm1.deliverysystem.utils.PayingStatus;
 
 import java.util.Date;
 
@@ -21,8 +23,8 @@ public class Order {
     private Date startShippingTime;
     private Date estimatedTime;
     private Double fee;
-    private Boolean orderStatus;
-    private Boolean payingStatus;
+    private OrderStatus orderStatus;
+    private PayingStatus payingStatus;
     private Date created_at;
     private Date updated_at;
 }
