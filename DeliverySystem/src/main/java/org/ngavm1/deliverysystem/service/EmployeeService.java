@@ -8,10 +8,16 @@ import org.springframework.http.ResponseEntity;
 
 public interface EmployeeService {
     ResponseEntity<ResponseModel> findAllEmployee() throws EmployeeException;
+
     ResponseEntity<ResponseModel> findEmployeeByEmail(String email) throws EmployeeException;
+
     ResponseEntity<ResponseModel> findEmployeeByFullName(String fullName) throws EmployeeException;
+
     ResponseEntity<ResponseModel> findEmployeeByPhoneNumber(String phoneNumber) throws EmployeeException;
+
     ResponseEntity<ResponseModel> insertEmployee(RequestEmployeeSignup requestEmployeeSignup) throws EmployeeException;
+
     ResponseEntity<ResponseModel> updateEmployee(RequestUpdate requestUpdate) throws EmployeeException;
+
     ResponseEntity<ResponseModel> resetPassword(RequestUpdate requestUpdate) throws EmployeeException;
 }

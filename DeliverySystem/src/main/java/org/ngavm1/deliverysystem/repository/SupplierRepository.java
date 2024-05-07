@@ -5,6 +5,7 @@ import org.ngavm1.deliverysystem.exception.SupplierException;
 import org.ngavm1.deliverysystem.mapper.SupplierMapper;
 import org.ngavm1.deliverysystem.model.Supplier;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
+import org.ngavm1.deliverysystem.payload.request.RequestSupplierSignup;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -35,8 +36,8 @@ public class SupplierRepository {
         return supplierMapper.findSupplierByEmail(email);
     }
 
-    public int insertSupplier(Supplier Supplier) throws SupplierException {
-        return supplierMapper.insertSupplier(Supplier);
+    public int insertSupplier(RequestSupplierSignup requestSupplierSignup) throws SupplierException {
+        return supplierMapper.insertSupplier(requestSupplierSignup);
     }
 
     public int updateSupplier(Supplier Supplier) throws SupplierException {

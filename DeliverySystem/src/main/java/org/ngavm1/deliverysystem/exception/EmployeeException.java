@@ -1,6 +1,6 @@
 package org.ngavm1.deliverysystem.exception;
 
-public class EmployeeException extends Exception{
+public class EmployeeException extends Exception {
     public EmployeeException(String message) {
         super(message);
     }

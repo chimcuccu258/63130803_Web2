@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Update;
 import org.ngavm1.deliverysystem.exception.SupplierException;
 import org.ngavm1.deliverysystem.model.Supplier;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
+import org.ngavm1.deliverysystem.payload.request.RequestSupplierSignup;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -33,7 +34,7 @@ public interface SupplierMapper {
     Optional<Boolean> existsByEmail(String email) throws SupplierException;
 
     @Insert("INSERT INTO Supplier (supplierName, supplierCode, email, address, phoneNumber, password) VALUES (#{address}, #{supplierCode}, #{email}, #{address}, #{phoneNumber}, #{password})")
-    int insertSupplier(Supplier Supplier) throws SupplierException;
+    int insertSupplier(RequestSupplierSignup Supplier) throws SupplierException;
 
     @Update("UPDATE Supplier SET address = #{address}, phoneNumber = #{phoneNumber}, password = #{password} WHERE email = #{email}")
     int updateSupplier(Supplier Supplier) throws SupplierException;

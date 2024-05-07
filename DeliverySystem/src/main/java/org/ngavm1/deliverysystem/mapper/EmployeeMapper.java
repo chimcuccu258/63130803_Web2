@@ -1,11 +1,13 @@
 package org.ngavm1.deliverysystem.mapper;
 
+import jakarta.validation.Valid;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.ngavm1.deliverysystem.exception.EmployeeException;
 import org.ngavm1.deliverysystem.model.Employee;
+import org.ngavm1.deliverysystem.payload.request.RequestEmployeeSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
 import org.ngavm1.deliverysystem.payload.request.RequestUpdate;
 
@@ -31,7 +33,7 @@ public interface EmployeeMapper {
     Optional<Boolean> existsByEmail(String email) throws EmployeeException;
 
     @Insert("INSERT INTO Employee (fullName, dateOfBirth, gender, address, phoneNumber, email, password) VALUES (#{fullName}, #{dateOfBirth}, #{gender}, #{address}, #{phoneNumber}, #{email}, #{password})")
-    int insertEmployee(Employee employee) throws EmployeeException;
+    int insertEmployee(@Valid RequestEmployeeSignup employee) throws EmployeeException;
 
     @Update("UPDATE Employee SET address = #{address}, phoneNumber = #{phoneNumber}, email = #{email}, password = #{password} WHERE employeeID = #{employeeID}")
     int updateEmployee(RequestUpdate requestUpdate) throws EmployeeException;

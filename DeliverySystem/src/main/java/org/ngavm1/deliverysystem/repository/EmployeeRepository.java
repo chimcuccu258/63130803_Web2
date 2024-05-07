@@ -1,5 +1,6 @@
 package org.ngavm1.deliverysystem.repository;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.ngavm1.deliverysystem.exception.EmployeeException;
 import org.ngavm1.deliverysystem.mapper.EmployeeMapper;
@@ -33,8 +34,8 @@ public class EmployeeRepository {
         return employeeMapper.findEmployeeByPhoneNumber(phoneNumber);
     }
 
-    public int insertEmployee(Employee employee) throws EmployeeException {
-        return employeeMapper.insertEmployee(employee);
+    public int insertEmployee(@Valid RequestEmployeeSignup requestEmployeeSignup) throws EmployeeException {
+        return employeeMapper.insertEmployee(requestEmployeeSignup);
     }
 
     public int updateEmployee(RequestUpdate requestUpdate) throws EmployeeException {

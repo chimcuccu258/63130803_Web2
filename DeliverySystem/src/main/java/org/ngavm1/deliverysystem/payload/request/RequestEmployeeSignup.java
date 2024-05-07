@@ -18,10 +18,8 @@ public class RequestEmployeeSignup {
     @NotEmpty
     @NotBlank
     private String fullName;
-    @NotNull
-    @NotEmpty
-    @NotBlank
     private Date dateOfBirth;
+    private Boolean gender;
     @NotNull
     @NotEmpty
     @NotBlank

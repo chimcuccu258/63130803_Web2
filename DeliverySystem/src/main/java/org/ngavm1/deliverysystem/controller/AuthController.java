@@ -13,6 +13,7 @@ import org.ngavm1.deliverysystem.payload.response.JwtResponse;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.repository.CustomerRepository;
 import org.ngavm1.deliverysystem.repository.EmployeeRepository;
+import org.ngavm1.deliverysystem.repository.SupplierRepository;
 import org.ngavm1.deliverysystem.security.JwtUtils;
 import org.ngavm1.deliverysystem.utils.MessageStringResponse;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,7 @@ public class AuthController {
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
+    private final SupplierRepository supplierRepository;
 
     @PostMapping("/login")
     public ResponseEntity<ResponseModel> authenticateUser(@Valid @RequestBody RequestLogin loginRequest, HttpServletRequest request) {
@@ -66,38 +68,38 @@ public class AuthController {
         }
     }
 
-//    @PostMapping("/supplier-signup")
-//    public ResponseEntity<ResponseModel> registerStore(@Valid @RequestBody RequestSupplierSignup requestSupplierSignup) throws SupplierException {
-//        try {
-//            if (customerRepository.existsByEmail(requestCustomerSignup.getEmail())) {
-//                return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.EMAIL_IS_ALREADY, null));
-//            }
-//
-//            // Encode password
-//            requestCustomerSignup.setPassword(encoder.encode(requestCustomerSignup.getPassword()));
-//
-//            int result = customerRepository.registerCustomer(requestCustomerSignup);
-//
-//            if (result > 0) {
-//                return ResponseEntity.ok().body(new ResponseModel(200, MessageStringResponse.SUCCESS, null));
-//            } else {
-//                return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.ACCOUNT_CREATION_FAILED, null));
-//            }
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body(new ResponseModel(400, e.getMessage(), null));
-//        }
-//    }
+    @PostMapping("/supplier-signup")
+    public ResponseEntity<ResponseModel> registerStore(@Valid @RequestBody RequestSupplierSignup requestSupplierSignup) throws SupplierException {
+        try {
+            if (supplierRepository.existsByEmail(requestSupplierSignup.getEmail())) {
+                return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.EMAIL_IS_ALREADY, null));
+            }
+
+            // Encode password
+            requestSupplierSignup.setPassword(encoder.encode(requestSupplierSignup.getPassword()));
+
+            int result = supplierRepository.insertSupplier(requestSupplierSignup);
+
+            if (result > 0) {
+                return ResponseEntity.ok().body(new ResponseModel(200, MessageStringResponse.SUCCESS, null));
+            } else {
+                return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.ACCOUNT_CREATION_FAILED, null));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ResponseModel(400, e.getMessage(), null));
+        }
+    }
 
     @PostMapping("/employee-signup")
-    public ResponseEntity<ResponseModel> registerEmployee(@Valid @RequestBody RequestEmployeeSignup request) throws EmployeeException {
-        if (employeeRepository.existsByEmail(request.getEmail())) {
+    public ResponseEntity<ResponseModel> registerEmployee(@Valid @RequestBody RequestEmployeeSignup requestEmployeeSignup) throws EmployeeException {
+        if (employeeRepository.existsByEmail(requestEmployeeSignup.getEmail())) {
             return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.EMAIL_IS_ALREADY, null));
         }
 
         // Encode password
-        request.setPassword(encoder.encode(request.getPassword()));
+        requestEmployeeSignup.setPassword(encoder.encode(requestEmployeeSignup.getPassword()));
 //        return employeeRepository.createUser(request);
-        int result = employeeRepository.createAccount(request);
+        int result = employeeRepository.insertEmployee(requestEmployeeSignup);
 
         if (result > 0) {
             return ResponseEntity.ok().body(new ResponseModel(200, MessageStringResponse.SUCCESS, null));
