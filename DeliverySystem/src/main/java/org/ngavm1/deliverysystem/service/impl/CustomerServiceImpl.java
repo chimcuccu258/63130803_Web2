@@ -23,7 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customerList = customerRepository.findAllCustomer();
 
         if (customerList != null) {
-            ResponseModel response = new ResponseModel(200, MessageStringResponse.SUCCESS, customerList);
+            ResponseModel response = new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.SUCCESS, customerList);
             return ResponseEntity.ok().headers(new HttpHeaders()).body(response);
         } else {
             throw new CustomerException(MessageStringResponse.CUSTOMER_NOT_FOUND);

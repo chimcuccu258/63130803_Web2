@@ -60,19 +60,19 @@ public class AuthController {
             // Return token to client
             JwtResponse jwtResponse = new JwtResponse(jwt, userDetails);
 
-            ResponseModel responseModel = new ResponseModel(200, MessageStringResponse.LOGIN_SUCCESSFULLY, jwtResponse);
+            ResponseModel responseModel = new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.LOGIN_SUCCESSFULLY, jwtResponse);
             return ResponseEntity.ok(responseModel);
         } catch (AuthenticationException e) {
-            ResponseModel responseModel = new ResponseModel(401, MessageStringResponse.INVALID_USERNAME_OR_PASSWORD, null);
+            ResponseModel responseModel = new ResponseModel(MessageStringResponse.ERROR, MessageStringResponse.INVALID_USERNAME_OR_PASSWORD, null);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseModel);
         }
     }
 
     @PostMapping("/supplier-signup")
-    public ResponseEntity<ResponseModel> registerStore(@Valid @RequestBody RequestSupplierSignup requestSupplierSignup) throws SupplierException {
+    public ResponseEntity<ResponseModel> registerSupplier(@Valid @RequestBody RequestSupplierSignup requestSupplierSignup) throws SupplierException {
         try {
             if (supplierRepository.existsByEmail(requestSupplierSignup.getEmail())) {
-                return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.EMAIL_IS_ALREADY, null));
+                return ResponseEntity.badRequest().body(new ResponseModel(MessageStringResponse.ERROR, MessageStringResponse.EMAIL_IS_ALREADY, null));
             }
 
             // Encode password
@@ -81,19 +81,19 @@ public class AuthController {
             int result = supplierRepository.insertSupplier(requestSupplierSignup);
 
             if (result > 0) {
-                return ResponseEntity.ok().body(new ResponseModel(200, MessageStringResponse.SUCCESS, null));
+                return ResponseEntity.ok().body(new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.SUCCESS, null));
             } else {
-                return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.ACCOUNT_CREATION_FAILED, null));
+                return ResponseEntity.badRequest().body(new ResponseModel(MessageStringResponse.ERROR, MessageStringResponse.ACCOUNT_CREATION_FAILED, null));
             }
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ResponseModel(400, e.getMessage(), null));
+            return ResponseEntity.badRequest().body(new ResponseModel(MessageStringResponse.ERROR, e.getMessage(), null));
         }
     }
 
     @PostMapping("/employee-signup")
     public ResponseEntity<ResponseModel> registerEmployee(@Valid @RequestBody RequestEmployeeSignup requestEmployeeSignup) throws EmployeeException {
         if (employeeRepository.existsByEmail(requestEmployeeSignup.getEmail())) {
-            return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.EMAIL_IS_ALREADY, null));
+            return ResponseEntity.badRequest().body(new ResponseModel(MessageStringResponse.ERROR, MessageStringResponse.EMAIL_IS_ALREADY, null));
         }
 
         // Encode password
@@ -102,9 +102,9 @@ public class AuthController {
         int result = employeeRepository.insertEmployee(requestEmployeeSignup);
 
         if (result > 0) {
-            return ResponseEntity.ok().body(new ResponseModel(200, MessageStringResponse.SUCCESS, null));
+            return ResponseEntity.ok().body(new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.SUCCESS, null));
         } else {
-            return ResponseEntity.badRequest().body(new ResponseModel(400, MessageStringResponse.ACCOUNT_CREATION_FAILED, null));
+            return ResponseEntity.badRequest().body(new ResponseModel(MessageStringResponse.ERROR, MessageStringResponse.ACCOUNT_CREATION_FAILED, null));
         }
     }
 
@@ -117,6 +117,6 @@ public class AuthController {
         securityContextLogoutHandler.setClearAuthentication(true);
         securityContextLogoutHandler.logout(request, response, authentication);
 
-        return ResponseEntity.ok(new ResponseModel(200, "Sign out successfully", null));
+        return ResponseEntity.ok(new ResponseModel(MessageStringResponse.SUCCESS, "Sign out successfully", null));
     }
 }
