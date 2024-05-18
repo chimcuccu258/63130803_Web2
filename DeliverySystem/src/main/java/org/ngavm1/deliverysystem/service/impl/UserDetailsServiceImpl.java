@@ -10,6 +10,7 @@ import org.ngavm1.deliverysystem.model.Supplier;
 import org.ngavm1.deliverysystem.repository.CustomerRepository;
 import org.ngavm1.deliverysystem.repository.EmployeeRepository;
 import org.ngavm1.deliverysystem.repository.SupplierRepository;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,69 +19,52 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final CustomerRepository customerRepository;
     private final EmployeeRepository employeeRepository;
     private final SupplierRepository supplierRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // If the email is "admin@gmail.com", set the role to "ADMIN"
         try {
-            Employee employee = employeeRepository.findEmployeeByEmail(email);
+            if (email.endsWith("@dls.co.com")) {
+                Employee employee = employeeRepository.findEmployeeByEmail(email);
 
-            if (employee != null && email.equals("admin@gmail.com")) {
-                String role = "Admin";
-                return org.springframework.security.core.userdetails.User.builder()
-                        .username(employee.getEmail())
-                        .password(employee.getPassword())
-                        .roles(role)
-                        .build();
+                if (employee != null) {
+                    String role = "Admin";
+                    return org.springframework.security.core.userdetails.User.builder()
+                            .username(employee.getEmail())
+                            .password(employee.getPassword())
+                            .roles(role)
+                            .build();
+                }
+            } else if (email.endsWith("@dls.em.com")) {
+                Employee employee = employeeRepository.findEmployeeByEmail(email);
+
+                if (employee != null) {
+                    String role = "Employee";
+                    return org.springframework.security.core.userdetails.User.builder()
+                            .username(employee.getEmail())
+                            .password(employee.getPassword())
+                            .roles(role)
+                            .build();
+                }
+            } else if (email.endsWith("@dls.su.com")) {
+                Supplier supplier = supplierRepository.findSupplierByEmail(email);
+
+                if (supplier != null) {
+                    String role = "Supplier";
+                    return org.springframework.security.core.userdetails.User.builder()
+                            .username(supplier.getEmail())
+                            .password(supplier.getPassword())
+                            .roles(role)
+                            .build();
+                }
             }
-
-        } catch (EmployeeException e) {
-            throw new RuntimeException(e);
-        }
-
-        // Get user from supplierRepository
-        try {
-
-            Supplier supplier = supplierRepository.findSupplierByEmail(email);
-            if (supplier != null) {
-                String role = "SUPPLIER";
-
-                return org.springframework.security.core.userdetails.User.builder()
-                        .username(supplier.getEmail())
-                        .password(supplier.getPassword())
-                        .roles(role)
-                        .build();
-            }
-
-        } catch (SupplierException e) {
-            // handle exception
+        } catch (EmployeeException | SupplierException e) {
             e.printStackTrace();
-        }
-
-        // Get user from employeeRepository
-        try {
-
-            Employee employee = employeeRepository.findEmployeeByEmail(email);
-            if (employee == null) {
-                throw new UsernameNotFoundException("User not found with email: " + email);
-            }
-            String role = "EMPLOYEE";
-            return org.springframework.security.core.userdetails.User.builder()
-                    .username(employee.getEmail())
-                    .password(employee.getPassword())
-                    .roles(role)
-                    .build();
-
-        } catch (EmployeeException e) {
-            // handle exception
+        } catch (Exception e) {
             e.printStackTrace();
+            throw new InternalAuthenticationServiceException("Unexpected error occurred", e);
         }
-
-
-
         throw new UsernameNotFoundException("User not found");
     }
 }

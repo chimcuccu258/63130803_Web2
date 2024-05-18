@@ -1,18 +1,23 @@
 package org.ngavm1.deliverysystem.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.ngavm1.deliverysystem.exception.EmployeeException;
 import org.ngavm1.deliverysystem.exception.SupplierException;
+import org.ngavm1.deliverysystem.model.Employee;
 import org.ngavm1.deliverysystem.model.Supplier;
 import org.ngavm1.deliverysystem.payload.request.RequestSupplierSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestUpdate;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.repository.SupplierRepository;
 import org.ngavm1.deliverysystem.service.SupplierService;
+import org.ngavm1.deliverysystem.utils.HeadersHTTP;
 import org.ngavm1.deliverysystem.utils.MessageStringResponse;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
@@ -22,8 +27,16 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public ResponseEntity<ResponseModel> findAllSupplier() throws SupplierException {
-        List<Supplier> suppliers = supplierRepository.findAllSupplier();
-        return ResponseEntity.ok().body(new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.GET_LIST_SUPPLIER_SUCCESSFULLY, suppliers));
+        List<Supplier> supplierList = supplierRepository.findAllSupplier();
+
+        if (supplierList != null) {
+            ResponseModel response = new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.SUCCESS, supplierList);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(new MediaType(HeadersHTTP.MEDIA_TYPE, HeadersHTTP.MEDIA_SUBTYPE, StandardCharsets.UTF_8));
+            return ResponseEntity.ok().headers(headers).body(response);
+        } else {
+            throw new SupplierException(MessageStringResponse.SUPPLIER_NOT_FOUND);
+        }
     }
 
     @Override
