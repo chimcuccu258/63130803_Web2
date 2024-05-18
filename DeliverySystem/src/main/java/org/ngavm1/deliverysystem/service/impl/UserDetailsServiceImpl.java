@@ -24,6 +24,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        // If the email is "admin@gmail.com", set the role to "ADMIN"
+        try {
+            Employee employee = employeeRepository.findEmployeeByEmail(email);
+
+            if (employee != null && email.equals("admin@gmail.com")) {
+                String role = "Admin";
+                return org.springframework.security.core.userdetails.User.builder()
+                        .username(employee.getEmail())
+                        .password(employee.getPassword())
+                        .roles(role)
+                        .build();
+            }
+
+        } catch (EmployeeException e) {
+            throw new RuntimeException(e);
+        }
+
         // Get user from supplierRepository
         try {
 
@@ -61,6 +78,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             // handle exception
             e.printStackTrace();
         }
+
+
 
         throw new UsernameNotFoundException("User not found");
     }

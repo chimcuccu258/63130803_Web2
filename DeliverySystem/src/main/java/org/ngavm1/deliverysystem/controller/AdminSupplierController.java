@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor
 @RestController
-@RequestMapping("/supplier/v1")
-public class SupplierController {
-
+@RequiredArgsConstructor
+@RequestMapping("/admin/v1/manage-supplier")
+public class AdminSupplierController {
 }
