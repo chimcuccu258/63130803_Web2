@@ -11,6 +11,7 @@ import org.ngavm1.deliverysystem.service.EmployeeService;
 import org.ngavm1.deliverysystem.utils.HeadersHTTP;
 import org.ngavm1.deliverysystem.utils.MessageStringResponse;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -58,13 +59,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<ResponseModel> insertEmployee(RequestEmployeeSignup requestEmployeeSignup) throws EmployeeException {
-        return null;
-    }
-
-    @Override
     public ResponseEntity<ResponseModel> updateEmployee(RequestUpdate requestUpdate) throws EmployeeException {
-        return null;
+
+        if (employeeRepository.updateEmployee(requestUpdate) > 0) {
+            ResponseModel response = new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.UPDATE_SUCCESSFULLY, null);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            throw new EmployeeException(MessageStringResponse.UPDATE_FAILED);
+        }
     }
 
     @Override

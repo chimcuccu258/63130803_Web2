@@ -48,6 +48,10 @@ public class SupplierRepository {
         return supplierMapper.existsByEmail(email).isPresent();
     }
 
+    public boolean existByPhone(String phoneNumber) throws SupplierException {
+        return supplierMapper.existsByPhoneNumber(phoneNumber).isPresent();
+    }
+
     public int resetPassword(RequestResetPassword requestResetPassword) throws SupplierException, SQLIntegrityConstraintViolationException {
         return supplierMapper.resetPassword(requestResetPassword);
     }

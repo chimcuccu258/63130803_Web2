@@ -75,6 +75,10 @@ public class AuthController {
                 return ResponseEntity.badRequest().body(new ResponseModel(MessageStringResponse.ERROR, MessageStringResponse.EMAIL_IS_ALREADY, null));
             }
 
+            if (supplierRepository.existByPhone(requestSupplierSignup.getPhoneNumber())) {
+                return ResponseEntity.badRequest().body(new ResponseModel(MessageStringResponse.ERROR, MessageStringResponse.PHONE_NUMBER_IS_ALREADY, null));
+            }
+
             // Encode password
             requestSupplierSignup.setPassword(encoder.encode(requestSupplierSignup.getPassword()));
 
@@ -96,9 +100,13 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new ResponseModel(MessageStringResponse.ERROR, MessageStringResponse.EMAIL_IS_ALREADY, null));
         }
 
+        if (employeeRepository.existByPhone(requestEmployeeSignup.getPhoneNumber())) {
+            return ResponseEntity.badRequest().body(new ResponseModel(MessageStringResponse.ERROR, MessageStringResponse.PHONE_NUMBER_IS_ALREADY, null));
+        }
+
         // Encode password
         requestEmployeeSignup.setPassword(encoder.encode(requestEmployeeSignup.getPassword()));
-//        return employeeRepository.createUser(request);
+
         int result = employeeRepository.insertEmployee(requestEmployeeSignup);
 
         if (result > 0) {

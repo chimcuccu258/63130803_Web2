@@ -11,15 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestSupplierSignup {
-    @Size(min = 5, max = 20)
     @NotNull
     @NotEmpty
     @NotBlank
     private String supplierName;
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    private String supplierCode;
     @NotNull
     @NotEmpty
     @NotBlank

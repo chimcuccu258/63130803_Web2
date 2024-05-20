@@ -17,8 +17,6 @@ public interface EmployeeService {
 
     ResponseEntity<ResponseModel> findEmployeeByPhoneNumber(String phoneNumber) throws EmployeeException;
 
-    ResponseEntity<ResponseModel> insertEmployee(RequestEmployeeSignup requestEmployeeSignup) throws EmployeeException;
-
     ResponseEntity<ResponseModel> updateEmployee(RequestUpdate requestUpdate) throws EmployeeException;
 
     ResponseEntity<ResponseModel> resetPassword(RequestUpdate requestUpdate) throws EmployeeException;

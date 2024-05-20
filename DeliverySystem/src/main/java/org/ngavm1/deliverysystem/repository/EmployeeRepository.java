@@ -50,6 +50,10 @@ public class EmployeeRepository {
         return employeeMapper.existsByEmail(email).isPresent();
     }
 
+    public boolean existByPhone(String phoneNumber) throws EmployeeException {
+        return employeeMapper.existsByPhoneNumber(phoneNumber).isPresent();
+    }
+
     public int resetPassword(RequestResetPassword requestResetPassword) throws EmployeeException, SQLIntegrityConstraintViolationException {
         return employeeMapper.resetPassword(requestResetPassword);
     }

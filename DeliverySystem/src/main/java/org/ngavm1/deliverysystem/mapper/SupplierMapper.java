@@ -33,7 +33,10 @@ public interface SupplierMapper {
     @Select("SELECT 1 FROM Supplier WHERE email = #{email} LIMIT 1")
     Optional<Boolean> existsByEmail(String email) throws SupplierException;
 
-    @Insert("INSERT INTO Supplier (supplierName, supplierCode, email, address, phoneNumber, password) VALUES (#{address}, #{supplierCode}, #{email}, #{address}, #{phoneNumber}, #{password})")
+    @Select("SELECT 1 FROM Supplier WHERE phoneNumber = #{phoneNumber} LIMIT 1")
+    Optional<Boolean> existsByPhoneNumber(String phoneNumber) throws SupplierException;
+
+    @Insert("INSERT INTO Supplier (supplierName, email, address, phoneNumber, password) VALUES (#{supplierName}, #{email}, #{address}, #{phoneNumber}, #{password})")
     int insertSupplier(RequestSupplierSignup Supplier) throws SupplierException;
 
     @Update("UPDATE Supplier SET address = #{address}, phoneNumber = #{phoneNumber}, password = #{password} WHERE email = #{email}")

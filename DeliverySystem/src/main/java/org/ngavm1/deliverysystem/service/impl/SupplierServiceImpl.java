@@ -60,11 +60,6 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public ResponseEntity<ResponseModel> insertSupplier(RequestSupplierSignup requestSupplierSignup) throws SupplierException {
-        return null;
-    }
-
-    @Override
     public ResponseEntity<ResponseModel> updateSupplier(RequestUpdate requestUpdate) throws SupplierException {
         return null;
     }

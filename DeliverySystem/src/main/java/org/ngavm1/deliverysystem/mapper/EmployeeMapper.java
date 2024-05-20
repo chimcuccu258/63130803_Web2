@@ -35,6 +35,9 @@ public interface EmployeeMapper {
     @Select("SELECT 1 FROM Employee WHERE email = #{email} LIMIT 1")
     Optional<Boolean> existsByEmail(String email) throws EmployeeException;
 
+    @Select("SELECT 1 FROM Employee WHERE phoneNumber = #{phoneNumber} LIMIT 1")
+    Optional<Boolean> existsByPhoneNumber(String phoneNumber) throws EmployeeException;
+
     @Insert("INSERT INTO Employee (fullName, dateOfBirth, gender, address, phoneNumber, email, password) VALUES (#{fullName}, #{dateOfBirth}, #{gender}, #{address}, #{phoneNumber}, #{email}, #{password})")
     int insertEmployee(@Valid RequestEmployeeSignup employee) throws EmployeeException;
 

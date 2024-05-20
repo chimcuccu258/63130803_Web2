@@ -17,8 +17,6 @@ public interface SupplierService {
 
     ResponseEntity<ResponseModel> findSupplierByEmail(String email) throws SupplierException;
 
-    ResponseEntity<ResponseModel> insertSupplier(RequestSupplierSignup requestSupplierSignup) throws SupplierException;
-
     ResponseEntity<ResponseModel> updateSupplier(RequestUpdate requestUpdate) throws SupplierException;
 
     ResponseEntity<ResponseModel> resetPassword(RequestUpdate requestUpdate) throws SupplierException;

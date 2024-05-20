@@ -15,7 +15,6 @@ import java.util.Date;
 public class Supplier {
     private Long supplierID;
     private String supplierName;
-    private String supplierCode;
     private SupplierStatus supplierStatus;
     private String email;
     private String address;
