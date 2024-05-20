@@ -22,6 +22,10 @@ public class EmployeeRepository {
         return employeeMapper.findAllEmployee();
     }
 
+    public Employee findEmployeeById(Long employeeID) throws EmployeeException {
+        return employeeMapper.findEmployeeById(employeeID);
+    }
+
     public Employee findEmployeeByEmail(String email) throws EmployeeException {
         return employeeMapper.findEmployeeByEmail(email);
     }

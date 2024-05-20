@@ -20,6 +20,9 @@ public interface EmployeeMapper {
     @Select("SELECT * FROM Employee")
     List<Employee> findAllEmployee() throws EmployeeException;
 
+    @Select("SELECT * FROM Employee WHERE employeeID = #{employeeID}")
+    Employee findEmployeeById(Long employeeID) throws EmployeeException;
+
     @Select("SELECT * FROM Employee WHERE fullName = #{fullName}")
     Employee findEmployeeByFullName(String fullName) throws EmployeeException;
 

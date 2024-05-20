@@ -38,6 +38,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public ResponseEntity<ResponseModel> findEmployeeById(Long employeeID) throws EmployeeException {
+        return null;
+    }
+
+    @Override
     public ResponseEntity<ResponseModel> findEmployeeByEmail(String email) throws EmployeeException {
         return null;
     }

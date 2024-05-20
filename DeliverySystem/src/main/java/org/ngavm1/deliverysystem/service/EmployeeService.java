@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 public interface EmployeeService {
     ResponseEntity<ResponseModel> findAllEmployee() throws EmployeeException;
 
+    ResponseEntity<ResponseModel> findEmployeeById(Long employeeID) throws EmployeeException;
+
     ResponseEntity<ResponseModel> findEmployeeByEmail(String email) throws EmployeeException;
 
     ResponseEntity<ResponseModel> findEmployeeByFullName(String fullName) throws EmployeeException;
