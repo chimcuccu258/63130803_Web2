@@ -1,12 +1,9 @@
 package org.ngavm1.deliverysystem.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.ngavm1.deliverysystem.exception.EmployeeException;
 import org.ngavm1.deliverysystem.exception.SupplierException;
-import org.ngavm1.deliverysystem.model.Employee;
 import org.ngavm1.deliverysystem.model.Supplier;
-import org.ngavm1.deliverysystem.payload.request.RequestSupplierSignup;
-import org.ngavm1.deliverysystem.payload.request.RequestUpdate;
+import org.ngavm1.deliverysystem.payload.request.RequestEmployeeUpdate;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.repository.SupplierRepository;
 import org.ngavm1.deliverysystem.service.SupplierService;
@@ -40,11 +37,6 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public ResponseEntity<ResponseModel> findSupplierBySupplierCode(String supplierCode) throws SupplierException {
-        return null;
-    }
-
-    @Override
     public ResponseEntity<ResponseModel> findSupplierByPhoneNumber(String phoneNumber) throws SupplierException {
         return null;
     }
@@ -60,12 +52,12 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public ResponseEntity<ResponseModel> updateSupplier(RequestUpdate requestUpdate) throws SupplierException {
+    public ResponseEntity<ResponseModel> updateSupplier(RequestEmployeeUpdate requestUpdate) throws SupplierException {
         return null;
     }
 
     @Override
-    public ResponseEntity<ResponseModel> resetPassword(RequestUpdate requestUpdate) throws SupplierException {
+    public ResponseEntity<ResponseModel> resetPassword(RequestEmployeeUpdate requestUpdate) throws SupplierException {
         return null;
     }
 }

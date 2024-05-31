@@ -9,7 +9,7 @@ import org.ngavm1.deliverysystem.exception.EmployeeException;
 import org.ngavm1.deliverysystem.model.Employee;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
-import org.ngavm1.deliverysystem.payload.request.RequestUpdate;
+import org.ngavm1.deliverysystem.payload.request.RequestEmployeeUpdate;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -41,8 +41,8 @@ public interface EmployeeMapper {
     @Insert("INSERT INTO Employee (fullName, dateOfBirth, gender, address, phoneNumber, email, password) VALUES (#{fullName}, #{dateOfBirth}, #{gender}, #{address}, #{phoneNumber}, #{email}, #{password})")
     int insertEmployee(@Valid RequestEmployeeSignup employee) throws EmployeeException;
 
-    @Update("UPDATE Employee SET address = #{address}, phoneNumber = #{phoneNumber}, email = #{email}, password = #{password} WHERE employeeID = #{employeeID}")
-    int updateEmployee(RequestUpdate requestUpdate) throws EmployeeException;
+    @Update("UPDATE Employee SET address = #{address}, phoneNumber = #{phoneNumber}  WHERE employeeID = #{employeeID}")
+    int updateEmployee(RequestEmployeeUpdate requestEmployeeUpdate) throws EmployeeException;
 
     @Update("UPDATE Employee SET avatar = #{mediaId} WHERE employeeID = #{employeeID}")
     int updateAvatar(Long employeeID, int mediaId) throws EmployeeException;

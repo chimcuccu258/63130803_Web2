@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestResetPassword {
-    private Long id;
-    private String newPassword;
+public class RequestGetUser {
+    private String fullName;
+    private String email;
+    private String phoneNumber;
 }

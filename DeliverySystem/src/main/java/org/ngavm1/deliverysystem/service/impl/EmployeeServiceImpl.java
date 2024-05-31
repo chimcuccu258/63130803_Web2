@@ -3,15 +3,14 @@ package org.ngavm1.deliverysystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.ngavm1.deliverysystem.exception.EmployeeException;
 import org.ngavm1.deliverysystem.model.Employee;
-import org.ngavm1.deliverysystem.payload.request.RequestEmployeeSignup;
-import org.ngavm1.deliverysystem.payload.request.RequestUpdate;
+import org.ngavm1.deliverysystem.payload.request.RequestEmployeeUpdate;
+import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.repository.EmployeeRepository;
 import org.ngavm1.deliverysystem.service.EmployeeService;
 import org.ngavm1.deliverysystem.utils.HeadersHTTP;
 import org.ngavm1.deliverysystem.utils.MessageStringResponse;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -40,12 +39,28 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ResponseEntity<ResponseModel> findEmployeeById(Long employeeID) throws EmployeeException {
-        return null;
+        if (employeeRepository.findEmployeeById(employeeID) != null) {
+            Employee employee = employeeRepository.findEmployeeById(employeeID);
+            ResponseModel response = new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.SUCCESS, employee);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(new MediaType(HeadersHTTP.MEDIA_TYPE, HeadersHTTP.MEDIA_SUBTYPE, StandardCharsets.UTF_8));
+            return ResponseEntity.ok().headers(headers).body(response);
+        } else {
+            throw new EmployeeException(MessageStringResponse.EMPLOYEE_NOT_FOUND);
+        }
     }
 
     @Override
     public ResponseEntity<ResponseModel> findEmployeeByEmail(String email) throws EmployeeException {
-        return null;
+        if (employeeRepository.findEmployeeByEmail(email) != null) {
+            Employee employee = employeeRepository.findEmployeeByEmail(email);
+            ResponseModel response = new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.SUCCESS, employee);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(new MediaType(HeadersHTTP.MEDIA_TYPE, HeadersHTTP.MEDIA_SUBTYPE, StandardCharsets.UTF_8));
+            return ResponseEntity.ok().headers(headers).body(response);
+        } else {
+            throw new EmployeeException(MessageStringResponse.EMPLOYEE_NOT_FOUND);
+        }
     }
 
     @Override
@@ -59,18 +74,24 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<ResponseModel> updateEmployee(RequestUpdate requestUpdate) throws EmployeeException {
-
-        if (employeeRepository.updateEmployee(requestUpdate) > 0) {
-            ResponseModel response = new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.UPDATE_SUCCESSFULLY, null);
-            return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity<ResponseModel> updateEmployee(RequestEmployeeUpdate requestEmployeeUpdate) throws EmployeeException {
+        if (employeeRepository.findEmployeeById(requestEmployeeUpdate.getEmployeeID()) != null) {
+            int result = employeeRepository.updateEmployee(requestEmployeeUpdate);
+            if (result > 0) {
+                ResponseModel response = new ResponseModel(MessageStringResponse.SUCCESS, MessageStringResponse.SUCCESS, requestEmployeeUpdate);
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(new MediaType(HeadersHTTP.MEDIA_TYPE, HeadersHTTP.MEDIA_SUBTYPE, StandardCharsets.UTF_8));
+                return ResponseEntity.ok().headers(headers).body(response);
+            } else {
+                throw new EmployeeException(MessageStringResponse.UPDATE_FAILED);
+            }
         } else {
-            throw new EmployeeException(MessageStringResponse.UPDATE_FAILED);
+            throw new EmployeeException(MessageStringResponse.EMPLOYEE_NOT_FOUND);
         }
     }
 
     @Override
-    public ResponseEntity<ResponseModel> resetPassword(RequestUpdate requestUpdate) throws EmployeeException {
+    public ResponseEntity<ResponseModel> resetPassword(RequestResetPassword requestResetPassword) throws EmployeeException {
         return null;
     }
 }

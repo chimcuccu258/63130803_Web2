@@ -12,21 +12,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestUpdate {
+public class RequestSupplierUpdate {
     @NotNull
     @NotEmpty
     @NotBlank
+    private Long supplierID;
+    private String supplierName;
     private String address;
-    @NotNull
-    @NotEmpty
-    @NotBlank
     private String phoneNumber;
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    private String email;
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    private String password;
 }

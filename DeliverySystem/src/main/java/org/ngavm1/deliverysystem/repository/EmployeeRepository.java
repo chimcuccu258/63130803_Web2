@@ -7,7 +7,7 @@ import org.ngavm1.deliverysystem.mapper.EmployeeMapper;
 import org.ngavm1.deliverysystem.model.Employee;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
-import org.ngavm1.deliverysystem.payload.request.RequestUpdate;
+import org.ngavm1.deliverysystem.payload.request.RequestEmployeeUpdate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -42,8 +42,8 @@ public class EmployeeRepository {
         return employeeMapper.insertEmployee(requestEmployeeSignup);
     }
 
-    public int updateEmployee(RequestUpdate requestUpdate) throws EmployeeException {
-        return employeeMapper.updateEmployee(requestUpdate);
+    public int updateEmployee(RequestEmployeeUpdate requestEmployeeUpdate) throws EmployeeException {
+        return employeeMapper.updateEmployee(requestEmployeeUpdate);
     }
 
     public boolean existsByEmail(String email) throws EmployeeException {
