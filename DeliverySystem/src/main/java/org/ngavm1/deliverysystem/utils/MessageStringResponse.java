@@ -18,6 +18,9 @@ public class MessageStringResponse {
     //Employee
     public static final String EMPLOYEE_NOT_FOUND = "Employee not found";
     public static final String EMPLOYEE_UPDATE_FAILED = "Employee update failed";
+    public static final String CHANGE_PASSWORD_SUCCESSFULLY = "Change password successfully";
+    public static final String CHANGE_PASSWORD_FAILED = "Change password failed";
+    public static final String OLD_PASSWORD_INCORRECT = "Old password is incorrect";
 
     //Supplier
     public static final String SUPPLIER_NOT_FOUND = "Supplier not found";

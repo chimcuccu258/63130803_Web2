@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.ngavm1.deliverysystem.exception.EmployeeException;
 import org.ngavm1.deliverysystem.model.Employee;
+import org.ngavm1.deliverysystem.payload.request.RequestChangePassword;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeUpdate;
@@ -47,6 +48,9 @@ public interface EmployeeMapper {
     @Update("UPDATE Employee SET avatar = #{mediaId} WHERE employeeID = #{employeeID}")
     int updateAvatar(Long employeeID, int mediaId) throws EmployeeException;
 
-    @Update("UPDATE Employee SET password = #{newPassword} WHERE employeeID = #{employeeID}")
+    @Update("UPDATE Employee SET password = #{newPassword} WHERE email = #{email}")
     int resetPassword(RequestResetPassword requestResetPassword) throws EmployeeException, SQLIntegrityConstraintViolationException;
+
+    @Update("UPDATE Employee SET password = #{newPassword} WHERE employeeID = #{employeeID}")
+    int changePassword(RequestChangePassword requestChangePassword) throws EmployeeException, SQLIntegrityConstraintViolationException;
 }

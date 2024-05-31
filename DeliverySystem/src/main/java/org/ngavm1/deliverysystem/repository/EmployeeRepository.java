@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.ngavm1.deliverysystem.exception.EmployeeException;
 import org.ngavm1.deliverysystem.mapper.EmployeeMapper;
 import org.ngavm1.deliverysystem.model.Employee;
+import org.ngavm1.deliverysystem.payload.request.RequestChangePassword;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeUpdate;
@@ -56,6 +57,10 @@ public class EmployeeRepository {
 
     public int resetPassword(RequestResetPassword requestResetPassword) throws EmployeeException, SQLIntegrityConstraintViolationException {
         return employeeMapper.resetPassword(requestResetPassword);
+    }
+
+    public int changePassword(RequestChangePassword requestChangePassword) throws EmployeeException, SQLIntegrityConstraintViolationException {
+        return employeeMapper.changePassword(requestChangePassword);
     }
 
     public int updateAvatar(Long employeeID, int mediaId) throws EmployeeException {
