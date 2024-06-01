@@ -1,16 +1,21 @@
-import React, { useState } from "react";
-import { User } from "../../services/api";
+import React, { useEffect, useState } from "react";
+import { Supplier, User } from "../../services/api";
 import Admin from "../Admin";
 import Employee from "../Employee";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
+  ShopOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  CarryOutOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Avatar, Button, Flex, Layout, Menu, Space, Spin, theme } from "antd";
 import "./styles.css";
+import Order from "../Order";
+import Customer from "../Customer";
+import UserDetails from "./components/UserDetails";
+import SupplierScreen from '../Supplier/index';
 
 const { Header, Sider, Content } = Layout;
 
@@ -22,89 +27,140 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ isLoggedIn, onLogout, user }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedMenuItem, setSelectedMenuItem] = useState("1");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [suppliers, setSuppliers] = useState<Supplier[] | null>(null);
+  // console.log(localStorage.getItem("token"));
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const renderUserType = () => {
-    if (!user) return null;
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+  };
 
-    const emailDomain = user.email.split("@")[1];
-
-    if (emailDomain === "dls.co.com") {
-      return <Admin />;
-    } else if (emailDomain === "dls.em.com") {
-      return <Employee />;
+  useEffect(() => {
+    if (user) {
+      console.log("User data loaded:", user);
+      setIsLoading(false);
     } else {
-      return null;
+      console.log("User data not loaded yet");
+    }
+  }, [user]);
+
+
+  const renderContent = () => {
+    switch (selectedMenuItem) {
+      case "1":
+        return <Employee user={user} />;
+      case "2":
+        return <SupplierScreen/>;
+      case "3":
+        return <Order />;
+      case "4":
+        return <Customer />;
+      default:
+        return <Employee user={user} />;
     }
   };
 
   return (
     <div>
-      {/* <h2>Home</h2>
-      {isLoggedIn ? (
-        <div>
-          <p>Welcome, {user?.fullName}!</p>
-          <p>Email: {user?.email}</p>
-          <button onClick={onLogout}>Logout</button>
-          {renderUserType()}
-        </div>
-      ) : (
-        <p>Please log in to access more features.</p>
-      )} */}
-      <Layout style={{ minHeight: "100vh" }}>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="demo-logo-vertical" />
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            items={[
-              {
-                key: "1",
-                icon: <UserOutlined />,
-                label: "nav 1",
-              },
-              {
-                key: "2",
-                icon: <VideoCameraOutlined />,
-                label: "nav 2",
-              },
-              {
-                key: "3",
-                icon: <UploadOutlined />,
-                label: "nav 3",
-              },
-            ]}
-          />
-        </Sider>
-        <Layout>
-          <Header style={{ padding: 0, background: colorBgContainer }}>
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
+      {isLoggedIn && (
+        <Layout style={{ minHeight: "100vh" }}>
+          <Sider trigger={null} collapsible collapsed={collapsed}>
+            <div
               style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
+                padding: 10,
               }}
+            >
+              <Avatar size="large" icon={<UserOutlined />} />
+              <text
+                style={{
+                  color: "white",
+                }}
+              >
+                {" "}
+                {user?.fullName}
+              </text>
+            </div>
+            <Menu
+              theme="dark"
+              mode="inline"
+              defaultSelectedKeys={["1"]}
+              onSelect={({ key }) => setSelectedMenuItem(key)}
+              items={[
+                {
+                  key: "1",
+                  icon: <UserOutlined />,
+                  label: "Employee",
+                },
+                {
+                  key: "2",
+                  icon: <ShopOutlined />,
+                  label: "Supplier",
+                },
+                {
+                  key: "3",
+                  icon: <CarryOutOutlined />,
+                  label: "Order",
+                },
+                {
+                  key: "4",
+                  icon: <UserOutlined />,
+                  label: "Customer",
+                },
+              ]}
             />
-          </Header>
-          <Content
-            style={{
-              margin: "24px 16px",
-              padding: 24,
-              minHeight: 280,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            Content
-          </Content>
+          </Sider>
+          <Layout>
+            <Header
+              style={{
+                padding: 0,
+                background: colorBgContainer,
+                justifyContent: "space-between",
+              }}
+            >
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                style={{
+                  fontSize: "16px",
+                  width: 64,
+                  height: 64,
+                }}
+              />
+              <Button
+                type="text"
+                icon={<LogoutOutlined />}
+                onClick={onLogout}
+                style={{
+                  fontSize: "16px",
+                }}
+              />
+            </Header>
+            <Content
+              style={{
+                margin: "24px 16px",
+                padding: 24,
+                minHeight: 280,
+                background: colorBgContainer,
+                borderRadius: borderRadiusLG,
+              }}
+            >
+              {/* {renderContent()} */}
+              {isLoading ? <Spin /> : renderContent()}
+            </Content>
+          </Layout>
+          <UserDetails
+            visible={isModalVisible}
+            onClose={handleModalClose}
+            user={user}
+          />
         </Layout>
-      </Layout>
+      )}
     </div>
   );
 };

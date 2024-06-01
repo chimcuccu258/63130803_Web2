@@ -1,7 +1,13 @@
 import React from "react";
+import { Supplier } from "../../services/api";
+import SupplierTable from "./components/SupplierTable";
 
-const Supplier = () => {
-  return <div>Supplier</div>;
+const SupplierScreen = ({  }) => {
+  return (
+    <div>
+      <SupplierTable />
+    </div>
+  );
 };
 
-export default Supplier;
+export default SupplierScreen;

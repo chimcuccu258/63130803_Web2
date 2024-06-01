@@ -23,6 +23,8 @@ const Login: React.FC<LoginProps> = ({ onSubmitLogin }) => {
     try {
       const { token, role }: LoginResponse = await login(loginRequest);
       const user: User = await getCurrentUser(loginRequest.email, token, role);
+      // console.log(token)
+      localStorage.setItem("token", token);
       onSubmitLogin(user);
     } catch (error) {
       if (error instanceof Error) {

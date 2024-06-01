@@ -8,6 +8,7 @@ import { User } from "./services/api";
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -19,8 +20,8 @@ const App: React.FC = () => {
 
   const onLogin = (user: User) => {
     setIsLoggedIn(true);
-    setUser(user);
     localStorage.setItem("user", JSON.stringify(user));
+    // setUser(user);
   };
 
   const onLogout = () => {

@@ -1,3 +1,5 @@
+import { EnumType } from "typescript";
+
 const baseURL = "http://localhost:8080";
 const auth = "/auth";
 const adminEmployee = "/admin/v1/manage-employee";
@@ -17,6 +19,10 @@ export interface LoginResponse {
   role: string;
 }
 
+export interface GetEmployeesResponse {
+  employees: User[];
+}
+
 export interface User {
   employeeID: number;
   fullName: string;
@@ -27,6 +33,30 @@ export interface User {
   phoneNumber: string;
   email: string;
   password: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Supplier {
+  supplierID: number;
+  supplierName: string;
+  supplierStatus: "OPEN" | "CLOSE";
+  email: string;
+  address: string;
+  phoneNumber: string;
+  password: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Employee {
+  employeeID: number;
+  fullName: string;
+  dateOfBirth: string;
+  gender: boolean;
+  address: string;
+  phoneNumber: string;
+  email: string;
   created_at: string;
   updated_at: string;
 }
@@ -95,3 +125,46 @@ export const getCurrentUser = async (
 
   return data.data;
 };
+
+export const fetchEmployees = async (token: any) => {
+  try {
+    const response = await fetch(`${baseURL}${adminEmployee}/find-all`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch employees");
+    }
+    const { data } = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : "Unknown error occurred"
+    );
+  }
+};
+
+export const fetchSuppliers = async (token: any) => {
+  try {
+    const response = await fetch(`${baseURL}${adminSupplier}/find-all`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch suppliers");
+    }
+    const { data } = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      error instanceof Error? error.message : "Unknown error occurred"
+    );
+  }
+}
+
