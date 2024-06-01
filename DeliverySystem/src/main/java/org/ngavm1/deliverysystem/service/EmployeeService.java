@@ -24,7 +24,5 @@ public interface EmployeeService {
 
     ResponseEntity<ResponseModel> resetPassword(RequestResetPassword requestResetPassword) throws EmployeeException, SQLIntegrityConstraintViolationException;
 
-    ResponseEntity<ResponseModel> setNewPassword(RequestResetPassword requestResetPassword) throws EmployeeException, SQLIntegrityConstraintViolationException;
-
     ResponseEntity<ResponseModel> changePassword(String username, RequestChangePassword requestChangePassword) throws EmployeeException, SQLIntegrityConstraintViolationException;
 }

@@ -59,8 +59,8 @@ public class EmployeeRepository {
         return employeeMapper.resetPassword(requestResetPassword);
     }
 
-    public int changePassword(RequestChangePassword requestChangePassword) throws EmployeeException, SQLIntegrityConstraintViolationException {
-        return employeeMapper.changePassword(requestChangePassword);
+    public int changePassword(String newPassword, Long employeeId) throws EmployeeException, SQLIntegrityConstraintViolationException {
+        return employeeMapper.changePassword(newPassword, employeeId);
     }
 
     public int updateAvatar(Long employeeID, int mediaId) throws EmployeeException {

@@ -130,20 +130,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<ResponseModel> setNewPassword(RequestResetPassword requestResetPassword) throws EmployeeException, SQLIntegrityConstraintViolationException {
-        requestResetPassword.setNewPassword(encoder.encode(requestResetPassword.getNewPassword()));
-        int result = employeeRepository.resetPassword(requestResetPassword);
-
-        if (result == 1) {
-            ResponseModel responseModel = new ResponseModel(MessageStringResponse.SUCCESS,
-                    MessageStringResponse.CHANGE_PASSWORD_SUCCESSFULLY, null);
-            return ResponseEntity.ok(responseModel);
-        } else {
-            throw new EmployeeException(MessageStringResponse.CHANGE_PASSWORD_FAILED);
-        }
-    }
-
-    @Override
     public ResponseEntity<ResponseModel> changePassword(String email, RequestChangePassword requestChangePassword) throws EmployeeException, SQLIntegrityConstraintViolationException {
         //get password of user
         Employee employee = employeeRepository.findEmployeeByEmail(email);
@@ -153,7 +139,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (encoder.matches(requestChangePassword.getOldPassword(), password)) {
 
             requestChangePassword.setNewPassword(encoder.encode(requestChangePassword.getNewPassword()));
-            if (employeeRepository.changePassword(requestChangePassword) == 1) { // If password is changed successfully
+            if (employeeRepository.changePassword(requestChangePassword.getNewPassword(),
+                    employee.getEmployeeID()) == 1) { // If password is changed successfully
                 ResponseModel responseModel = new ResponseModel(MessageStringResponse.SUCCESS,
                         MessageStringResponse.CHANGE_PASSWORD_SUCCESSFULLY, null);
                 return new ResponseEntity<>(responseModel, HttpStatus.OK);

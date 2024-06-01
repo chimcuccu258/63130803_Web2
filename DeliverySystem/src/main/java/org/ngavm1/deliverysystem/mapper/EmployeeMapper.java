@@ -52,5 +52,5 @@ public interface EmployeeMapper {
     int resetPassword(RequestResetPassword requestResetPassword) throws EmployeeException, SQLIntegrityConstraintViolationException;
 
     @Update("UPDATE Employee SET password = #{newPassword} WHERE employeeID = #{employeeID}")
-    int changePassword(RequestChangePassword requestChangePassword) throws EmployeeException, SQLIntegrityConstraintViolationException;
+    int changePassword(String newPassword, Long employeeID) throws EmployeeException, SQLIntegrityConstraintViolationException;
 }

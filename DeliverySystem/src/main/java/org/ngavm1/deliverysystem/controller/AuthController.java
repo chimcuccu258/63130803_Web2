@@ -124,4 +124,5 @@ public class AuthController {
 
         return ResponseEntity.ok(new ResponseModel(MessageStringResponse.SUCCESS, "Sign out successfully", null));
     }
+
 }
