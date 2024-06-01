@@ -28,11 +28,11 @@ public class EmployeeController {
         return employeeService.updateEmployee(requestEmployeeUpdate);
     }
 
-//    @GetMapping("/find-by-email")
-//    @Operation(summary = "Find employee by email")
-//    public ResponseEntity<ResponseModel> findEmployeeByEmail(@RequestParam String email) throws EmployeeException {
-//        return employeeService.findEmployeeByEmail(email);
-//    }
+    @GetMapping("/find-by-email")
+    @Operation(summary = "Find employee by email")
+    public ResponseEntity<ResponseModel> findEmployeeByEmail(@RequestParam String email) throws EmployeeException {
+        return employeeService.findEmployeeByEmail(email);
+    }
 
     @PostMapping("/change-password")
     @Operation(summary = "Change employee password")
