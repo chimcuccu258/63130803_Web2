@@ -47,15 +47,15 @@ CREATE TABLE `ProductType` (
 CREATE TABLE `Order` (
   `orderID` bigint PRIMARY KEY AUTO_INCREMENT,
   `customerID` bigint,
-  `storeID` bigint,
+  `supplierID` bigint,
   `employeeID` bigint,
   `origin` varchar(100),
   `destination` varchar(100),
   `startShippingTime` timestamp DEFAULT (CURRENT_TIMESTAMP),
   `estimatedTime` datetime,
   `fee` decimal(10,2),
-  `orderStatus` ENUM ('Delivering', 'Delivered', 'Canceled', 'Pending') DEFAULT 'Pending',
-  `payingStatus` ENUM ('Paid', 'Unpaid') DEFAULT 'Unpaid',
+  `orderStatus` ENUM ('DELIVERING', 'DELIVERED', 'CANCELLED', 'PENDING') DEFAULT 'PENDING',
+  `payingStatus` ENUM ('PAID', 'UNPAID') DEFAULT 'UNPAID',
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
   `updated_at` timestamp DEFAULT (CURRENT_TIMESTAMP)
 );
@@ -70,7 +70,7 @@ CREATE TABLE `OrderDetails` (
   `noteOfProduct` varchar(100)
 );
 
-ALTER TABLE `Order` ADD FOREIGN KEY (`storeID`) REFERENCES `Supplier` (`supplierID`);
+ALTER TABLE `Order` ADD FOREIGN KEY (`supplierID`) REFERENCES `Supplier` (`supplierID`);
 
 ALTER TABLE `Order` ADD FOREIGN KEY (`employeeID`) REFERENCES `Employee` (`employeeID`);
 
@@ -119,33 +119,34 @@ VALUES
 ('Food'),
 ('Beverage');
 
-INSERT INTO `Order` (`customerID`, `storeID`, `employeeID`, `origin`, `destination`, `startShippingTime`, `estimatedTime`, `fee`, `orderStatus`, `payingStatus`)
+INSERT INTO `Order` (`orderID`, `customerID`, `supplierID`, `employeeID`, `origin`, `destination`, `startShippingTime`, `estimatedTime`, `fee`, `orderStatus`, `payingStatus`)
 VALUES
-(1, 1, 1, '123 Nguyễn Lương Bằng, Hà Nội', '789 Đường Hoàng Diệu, Đà Nẵng', '2024-05-07 09:30:00', DATE_ADD('2024-05-07 09:30:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 160000, 'Delivered', 'Paid'),
-(2, 2, 2, '456 Lê Lợi, TP.HCM', '321 Trần Phú, Hải Phòng', '2024-05-07 11:00:00', DATE_ADD('2024-05-07 11:00:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 210000, 'Delivered', 'Paid'),
-(3, 3, 3, '789 Hải Phòng, Hải Phòng', '456 Hai Bà Trưng, Hà Nội', '2024-05-07 10:45:00', DATE_ADD('2024-05-07 10:45:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 190000, 'Delivered', 'Paid'),
-(4, 4, 4, '456 Cửa Đại, Quảng Nam', '147 Nguyễn Văn Cừ, TP.HCM', '2024-05-07 11:30:00', DATE_ADD('2024-05-07 11:30:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 230000, 'Delivered', 'Paid'),
-(5, 5, 5, '321 Lê Duẩn, Đà Nẵng', '258 Lý Thường Kiệt, Quảng Nam', '2024-05-07 12:15:00', DATE_ADD('2024-05-07 12:15:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 200000, 'Delivered', 'Paid'),
-(6, 6, 6, '654 Nguyễn Tri Phương, TP.HCM', '369 Lê Lợi, Hải Phòng', '2024-05-07 09:00:00', DATE_ADD('2024-05-07 09:00:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 220000, 'Delivered', 'Paid'),
-(7, 7, 7, '789 Trần Phú, Hà Nội', '456 Lê Duẩn, Đà Nẵng', '2024-05-07 10:30:00', DATE_ADD('2024-05-07 10:30:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 180000, 'Delivered', 'Paid'),
-(8, 8, 8, '147 Lê Thanh Nghị, Hà Nội', '789 Lê Thanh Nghị, TP.HCM', '2024-05-07 12:45:00', DATE_ADD('2024-05-07 12:45:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 240000, 'Delivered', 'Paid');
+(1, 1, 1, 1, '123 Nguyễn Lương Bằng, Hà Nội', '789 Đường Hoàng Diệu, Đà Nẵng', '2024-05-07 09:30:00', DATE_ADD('2024-05-07 09:30:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 160000, 'Delivered', 'Paid'),
+(2, 2, 2, 2, '456 Lê Lợi, TP.HCM', '321 Trần Phú, Hải Phòng', '2024-05-07 11:00:00', DATE_ADD('2024-05-07 11:00:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 210000, 'Delivered', 'Paid'),
+(3, 3, 3, 3, '789 Hải Phòng, Hải Phòng', '456 Hai Bà Trưng, Hà Nội', '2024-05-07 10:45:00', DATE_ADD('2024-05-07 10:45:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 190000, 'Delivered', 'Paid'),
+(4, 4, 4, 4, '456 Cửa Đại, Quảng Nam', '147 Nguyễn Văn Cừ, TP.HCM', '2024-05-07 11:30:00', DATE_ADD('2024-05-07 11:30:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 230000, 'Delivered', 'Paid'),
+(5, 5, 5, 5, '321 Lê Duẩn, Đà Nẵng', '258 Lý Thường Kiệt, Quảng Nam', '2024-05-07 12:15:00', DATE_ADD('2024-05-07 12:15:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 200000, 'Delivered', 'Paid'),
+(6, 6, 6, 6, '654 Nguyễn Tri Phương, TP.HCM', '369 Lê Lợi, Hải Phòng', '2024-05-07 09:00:00', DATE_ADD('2024-05-07 09:00:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 220000, 'Delivered', 'Paid'),
+(7, 7, 7, 7, '789 Trần Phú, Hà Nội', '456 Lê Duẩn, Đà Nẵng', '2024-05-07 10:30:00', DATE_ADD('2024-05-07 10:30:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 180000, 'Delivered', 'Paid'),
+(8, 8, 8, 8, '147 Lê Thanh Nghị, Hà Nội', '789 Lê Thanh Nghị, TP.HCM', '2024-05-07 12:45:00', DATE_ADD('2024-05-07 12:45:00', INTERVAL 15 + FLOOR(RAND() * 16) MINUTE), 240000, 'Delivered', 'Paid');
 
-INSERT INTO `OrderDetails` (`orderID`, `productTypeID`, `nameOfProduct`, `quantityOfProduct`, `priceOfProduct`, `noteOfProduct`)
-VALUES
-(1, 1, 'Phở Gà', 2, 50000, 'Extra noodles'),
-(1, 1, 'Chè Thái', 1, 25000, NULL),
-(2, 1, 'Cơm Niêu Sài Gòn', 1, 80000, 'Extra vegetables'),
-(2, 2, 'Trà Đào', 2, 20000, 'Less sugar'),
-(3, 1, 'Bún Bò Huế', 1, 70000, 'Spicy'),
-(3, 1, 'Bánh Mì Gà', 2, 30000, NULL),
-(4, 1, 'Mì Quảng', 1, 60000, 'With shrimp'),
-(4, 1, 'Hủ Tiếu Nam Vang', 1, 90000, 'Extra meat'),
-(5, 1, 'Bún Riêu', 2, 55000, 'Extra crab'),
-(5, 1, 'Phở Bắc', 1, 65000, 'With beef balls'),
-(6, 1, 'Gỏi Cuốn', 1, 40000, NULL),
-(6, 1, 'Cơm Tấm', 2, 35000, 'Grilled pork chop'),
-(7, 1, 'Bún Riêu', 1, 55000, 'Extra tofu'),
-(7, 1, 'Phở Bắc', 2, 65000, 'With rare beef'),
-(8, 1, 'Bánh Mì Chảo', 1, 30000, NULL),
-(8, 1, 'Mì Quảng', 2, 60000, 'Extra herbs');
+INSERT INTO `OrderDetails` (`orderID`, `orderDetailID`, `productTypeID`, `nameOfProduct`, `quantityOfProduct`, `priceOfProduct`, `noteOfProduct`) 
+VALUES 
+(1, 1, 1, 'Phở Gà', 2, 50000, 'Extra noodles'), 
+(1, 2, 1, 'Chè Thái', 1, 25000, NULL), 
+(2, 3, 1, 'Cơm Niêu Sài Gòn', 1, 80000, 'Extra vegetables'), 
+(2, 4, 2, 'Trà Đào', 2, 20000, 'Less sugar'), 
+(3, 5, 1, 'Bún Bò Huế', 1, 70000, 'Spicy'), 
+(3, 6, 1, 'Bánh Mì Gà', 2, 30000, NULL), 
+(4, 7, 1, 'Mì Quảng', 1, 60000, 'With shrimp'), 
+(4, 8, 1, 'Hủ Tiếu Nam Vang', 1, 90000, 'Extra meat'), 
+(5, 9, 1, 'Bún Riêu', 2, 55000, 'Extra crab'), 
+(5, 10, 1, 'Phở Bắc', 1, 65000, 'With beef balls'), 
+(6, 11, 1, 'Gỏi Cuốn', 1, 40000, NULL), 
+(6, 12, 1, 'Cơm Tấm', 2, 35000, 'Grilled pork chop'), 
+(7, 13, 1, 'Bún Riêu', 1, 55000, 'Extra tofu'), 
+(7, 14, 1, 'Phở Bắc', 2, 65000, 'With rare beef'), 
+(8, 15, 1, 'Bánh Mì Chảo', 1, 30000, NULL), 
+(8, 16, 1, 'Mì Quảng', 2, 60000, 'Extra herbs');
+
 

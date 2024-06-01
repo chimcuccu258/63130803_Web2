@@ -45,8 +45,8 @@ public class OrderRepository {
         return orderMapper.findOrderByEmployeeID(employeeID);
     }
 
-    public List<Order> findOrderByStoreID(Long storeID) throws OrderException {
-        return orderMapper.findOrderByStoreID(storeID);
+    public List<Order> findOrderBySupplierID(Long supplierID) throws OrderException {
+        return orderMapper.findOrderBySupplierID(supplierID);
     }
 
     public int updateOrderStatus(OrderStatus orderStatus, Long orderID) throws OrderException {
@@ -61,8 +61,8 @@ public class OrderRepository {
         return orderMapper.createOrder(order);
     }
 
-    public Order findOrderByCustomerIDStoreIDEmployeeIDStartShippingTimeFee(Long customerID, Long storeID, Long employeeID, Date startShippingTime, Double fee) throws OrderException {
-        return orderMapper.findOrderByCustomerIDStoreIDEmployeeIDStartShippingTimeFee(customerID, storeID, employeeID, startShippingTime, fee);
+    public Order findOrderByCustomerIDSupplierIDEmployeeIDStartShippingTimeFee(Long customerID, Long supplierID, Long employeeID, Date startShippingTime, Double fee) throws OrderException {
+        return orderMapper.findOrderByCustomerIDSupplierIDEmployeeIDStartShippingTimeFee(customerID, supplierID, employeeID, startShippingTime, fee);
     }
 
     public int createOrderDetail(OrderDetails orderDetails) throws OrderException {

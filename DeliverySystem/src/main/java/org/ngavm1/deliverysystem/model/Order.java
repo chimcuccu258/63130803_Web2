@@ -16,7 +16,7 @@ import java.util.Date;
 public class Order {
     private Long orderID;
     private Long customerID;
-    private Long storeID;
+    private Long supplierID;
     private Long employeeID;
     private String origin;
     private String destination;

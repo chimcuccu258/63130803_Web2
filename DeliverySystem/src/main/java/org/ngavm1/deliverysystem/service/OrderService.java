@@ -22,7 +22,7 @@ public interface OrderService {
 
     ResponseEntity<ResponseModel> findOrderByEmployee(String email) throws OrderException, EmployeeException;
 
-    ResponseEntity<ResponseModel> findOrderByStoreID(Long storeID) throws OrderException;
+    ResponseEntity<ResponseModel> findOrderBySupplierID(Long supplierID) throws OrderException;
 
     ResponseEntity<ResponseModel> updateOrderStatus(OrderStatus orderStatus, Long orderID) throws OrderException;
 

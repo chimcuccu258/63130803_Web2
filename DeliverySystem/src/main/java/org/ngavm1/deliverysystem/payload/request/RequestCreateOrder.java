@@ -16,7 +16,7 @@ import java.util.List;
 public class RequestCreateOrder {
     private String customerFullName;
     private String customerPhoneNumber;
-    private Long storeID;
+    private Long supplierID;
     private String addressFrom;
     private String addressTo;
     private Date startShippingTime;

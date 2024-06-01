@@ -40,10 +40,10 @@ public class AdminOrderController {
         return orderService.findOrderByPayingStatus(payingStatus);
     }
 
-    @PostMapping("/store")
-    @Operation(summary = "Find order by store ID")
-    public ResponseEntity<ResponseModel> findOrderByStoreID(@RequestParam Long storeID) throws OrderException {
-        return orderService.findOrderByStoreID(storeID);
+    @PostMapping("/supplier")
+    @Operation(summary = "Find order by supplier ID")
+    public ResponseEntity<ResponseModel> findOrderByStoreID(@RequestParam Long supplierID) throws OrderException {
+        return orderService.findOrderBySupplierID(supplierID);
     }
 
     @GetMapping("/update-status")

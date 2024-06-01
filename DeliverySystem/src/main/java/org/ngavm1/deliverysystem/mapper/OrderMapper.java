@@ -32,8 +32,8 @@ public interface OrderMapper {
     @Select("SELECT * FROM `Order` WHERE employeeID = #{employeeID}")
     List<Order> findOrderByEmployeeID(Long employeeID) throws OrderException;
 
-    @Select("SELECT * FROM `Order` WHERE storeID = #{storeID}")
-    List<Order> findOrderByStoreID(Long storeID) throws OrderException;
+    @Select("SELECT * FROM `Order` WHERE supplierID = #{supplierID}")
+    List<Order> findOrderBySupplierID(Long supplierID) throws OrderException;
 
     @Update("UPDATE `Order` SET orderStatus = #{orderStatus} WHERE orderID = #{orderID}")
     int updateOrderStatus(OrderStatus orderStatus, Long orderID) throws OrderException;
@@ -41,14 +41,14 @@ public interface OrderMapper {
     @Update("UPDATE `Order` SET PayingStatus = #{payingStatus} WHERE orderID = #{orderID}")
     int updatePayingStatus(PayingStatus payingStatus, Long orderID) throws OrderException;
 
-    @Insert("INSERT INTO `Order` (customerID, storeID, employeeID, origin, destination, " +
+    @Insert("INSERT INTO `Order` (customerID, supplierID, employeeID, origin, destination, " +
             "startShippingTime, estimatedTime, fee, orderStatus, payingStatus) " +
-            "VALUES (#{customerID}, #{storeID}, #{employeeID}, #{origin}, #{destination}, " +
+            "VALUES (#{customerID}, #{supplierID}, #{employeeID}, #{origin}, #{destination}, " +
             "#{startShippingTime}, #{estimatedTime}, #{fee}, #{orderStatus}, #{payingStatus})")
     int createOrder(Order order) throws OrderException;
 
-    @Select("SELECT * FROM `Order` WHERE customerID = #{customerID} AND storeID = #{storeID} AND employeeID = #{employeeID} " +
+    @Select("SELECT * FROM `Order` WHERE customerID = #{customerID} AND supplierID = #{supplierID} AND employeeID = #{employeeID} " +
             "AND startShippingTime = #{startShippingTime} AND fee = #{fee}")
-    Order findOrderByCustomerIDStoreIDEmployeeIDStartShippingTimeFee(Long customerID, Long storeID, Long employeeID,
+    Order findOrderByCustomerIDSupplierIDEmployeeIDStartShippingTimeFee(Long customerID, Long supplierID, Long employeeID,
                                                                      Date startShippingTime, Double fee) throws OrderException;
 }

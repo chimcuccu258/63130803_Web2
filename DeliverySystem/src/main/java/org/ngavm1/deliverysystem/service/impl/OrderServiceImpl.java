@@ -122,8 +122,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ResponseEntity<ResponseModel> findOrderByStoreID(Long storeID) throws OrderException {
-        List<Order> orders = orderRepository.findOrderByStoreID(storeID);
+    public ResponseEntity<ResponseModel> findOrderBySupplierID(Long supplierID) throws OrderException {
+        List<Order> orders = orderRepository.findOrderBySupplierID(supplierID);
         ResponseModel response;
 
         if (orders.isEmpty()) {
@@ -210,7 +210,7 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = new Order();
         order.setCustomerID(customerID);
-        order.setStoreID(requestCreateOrder.getStoreID());
+        order.setSupplierID(requestCreateOrder.getSupplierID());
         order.setEmployeeID(employeeId);
         order.setOrigin(requestCreateOrder.getAddressFrom());
         order.setDestination(requestCreateOrder.getAddressTo());
@@ -227,8 +227,8 @@ public class OrderServiceImpl implements OrderService {
         } else {
 
             List<RequestCreateOrderDetail> orderDetails = requestCreateOrder.getOrderDetails();
-            order = orderRepository.findOrderByCustomerIDStoreIDEmployeeIDStartShippingTimeFee(customerID,
-                    requestCreateOrder.getStoreID(), employeeId, requestCreateOrder.getStartShippingTime(),
+            order = orderRepository.findOrderByCustomerIDSupplierIDEmployeeIDStartShippingTimeFee(customerID,
+                    requestCreateOrder.getSupplierID(), employeeId, requestCreateOrder.getStartShippingTime(),
                     requestCreateOrder.getFee());
 
             Long orderID = order.getOrderID();
