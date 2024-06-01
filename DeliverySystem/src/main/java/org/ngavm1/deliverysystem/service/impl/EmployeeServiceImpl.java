@@ -144,9 +144,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<ResponseModel> changePassword(Long employeeID, RequestChangePassword requestChangePassword) throws EmployeeException, SQLIntegrityConstraintViolationException {
+    public ResponseEntity<ResponseModel> changePassword(String email, RequestChangePassword requestChangePassword) throws EmployeeException, SQLIntegrityConstraintViolationException {
         //get password of user
-        Employee employee = employeeRepository.findEmployeeById(employeeID);
+        Employee employee = employeeRepository.findEmployeeByEmail(email);
         String password = employee.getPassword();
 
         //check old password is equal with password of user
