@@ -26,6 +26,7 @@ public interface OrderService {
 
     ResponseEntity<ResponseModel> updateOrderStatus(OrderStatus orderStatus, Long orderID) throws OrderException;
 
-    ResponseEntity<ResponseModel> createOrder(RequestCreateOrder requestCreateOrder, String email) throws OrderException, CustomerException, EmployeeException;
+    ResponseEntity<ResponseModel> updatePayingStatus(PayingStatus payingStatus, Long orderID) throws OrderException;
 
+    ResponseEntity<ResponseModel> createOrder(RequestCreateOrder requestCreateOrder, String email) throws OrderException, CustomerException, EmployeeException;
 }

@@ -2,12 +2,16 @@ package org.ngavm1.deliverysystem.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.ngavm1.deliverysystem.exception.CustomerException;
 import org.ngavm1.deliverysystem.exception.EmployeeException;
+import org.ngavm1.deliverysystem.exception.OrderException;
 import org.ngavm1.deliverysystem.payload.request.RequestChangePassword;
+import org.ngavm1.deliverysystem.payload.request.RequestCreateOrder;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeUpdate;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.service.EmployeeService;
+import org.ngavm1.deliverysystem.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +25,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EmployeeController {
     private final EmployeeService employeeService;
+    private final OrderService orderService;
 
     @PostMapping("/update")
     @Operation(summary = "Update employee information")
@@ -46,5 +51,20 @@ public class EmployeeController {
     @Operation(summary = "Reset employee password")
     public ResponseEntity<ResponseModel> resetPassword(@RequestBody RequestResetPassword requestResetPassword) throws EmployeeException, SQLIntegrityConstraintViolationException {
         return employeeService.resetPassword(requestResetPassword);
+    }
+    @GetMapping("/find-order")
+    @Operation(summary = "Find order by employee ID")
+    public ResponseEntity<ResponseModel> findOrderByEmployeeID() throws EmployeeException, OrderException {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String email = securityContext.getAuthentication().getName();
+        return orderService.findOrderByEmployee(email);
+    }
+
+    @PostMapping("/create-order")
+    @Operation(summary = "Create order")
+    public ResponseEntity<ResponseModel> createOrder(@RequestBody RequestCreateOrder requestCreateOrder) throws OrderException, EmployeeException, CustomerException {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String email = securityContext.getAuthentication().getName();
+        return orderService.createOrder(requestCreateOrder, email);
     }
 }

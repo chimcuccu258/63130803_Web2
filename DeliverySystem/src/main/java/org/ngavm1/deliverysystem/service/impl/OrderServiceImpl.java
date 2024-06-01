@@ -7,7 +7,9 @@ import org.ngavm1.deliverysystem.exception.OrderException;
 import org.ngavm1.deliverysystem.model.Customer;
 import org.ngavm1.deliverysystem.model.Employee;
 import org.ngavm1.deliverysystem.model.Order;
+import org.ngavm1.deliverysystem.model.OrderDetails;
 import org.ngavm1.deliverysystem.payload.request.RequestCreateOrder;
+import org.ngavm1.deliverysystem.payload.request.RequestCreateOrderDetail;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.repository.CustomerRepository;
 import org.ngavm1.deliverysystem.repository.EmployeeRepository;
@@ -35,7 +37,8 @@ public class OrderServiceImpl implements OrderService {
         if (orders.isEmpty()) {
             response = new ResponseModel("204", "No orders found", null);
             return ResponseEntity.status(204).body(response);
-        } else {
+        }
+        else {
             response = new ResponseModel("200", "Orders found", orders);
             return ResponseEntity.status(200).body(response);
         }
@@ -49,7 +52,8 @@ public class OrderServiceImpl implements OrderService {
         if (order == null) {
             response = new ResponseModel("204", "Order not found", null);
             return ResponseEntity.status(204).body(response);
-        } else {
+        }
+        else {
             response = new ResponseModel("200", "Order found", order);
             return ResponseEntity.status(200).body(response);
         }
@@ -63,7 +67,8 @@ public class OrderServiceImpl implements OrderService {
         if (orders.isEmpty()) {
             response = new ResponseModel("204", "No orders found", null);
             return ResponseEntity.status(204).body(response);
-        } else {
+        }
+        else {
             response = new ResponseModel("200", "Orders found", orders);
             return ResponseEntity.status(200).body(response);
         }
@@ -77,7 +82,8 @@ public class OrderServiceImpl implements OrderService {
         if (orders.isEmpty()) {
             response = new ResponseModel("204", "No orders found", null);
             return ResponseEntity.status(204).body(response);
-        } else {
+        }
+        else {
             response = new ResponseModel("200", "Orders found", orders);
             return ResponseEntity.status(200).body(response);
         }
@@ -92,7 +98,8 @@ public class OrderServiceImpl implements OrderService {
         if (orders.isEmpty()) {
             response = new ResponseModel("204", "No orders found", null);
             return ResponseEntity.status(204).body(response);
-        } else {
+        }
+        else {
             response = new ResponseModel("200", "Orders found", orders);
             return ResponseEntity.status(200).body(response);
         }
@@ -107,7 +114,8 @@ public class OrderServiceImpl implements OrderService {
         if (orders.isEmpty()) {
             response = new ResponseModel("204", "No orders found", null);
             return ResponseEntity.status(204).body(response);
-        } else {
+        }
+        else {
             response = new ResponseModel("200", "Orders found", orders);
             return ResponseEntity.status(200).body(response);
         }
@@ -121,7 +129,8 @@ public class OrderServiceImpl implements OrderService {
         if (orders.isEmpty()) {
             response = new ResponseModel("204", "No orders found", null);
             return ResponseEntity.status(204).body(response);
-        } else {
+        }
+        else {
             response = new ResponseModel("200", "Orders found", orders);
             return ResponseEntity.status(200).body(response);
         }
@@ -135,8 +144,24 @@ public class OrderServiceImpl implements OrderService {
         if (result == 0) {
             response = new ResponseModel("204", "Order not found", null);
             return ResponseEntity.status(204).body(response);
-        } else {
+        }
+        else {
             response = new ResponseModel("200", "Order status updated", null);
+            return ResponseEntity.status(200).body(response);
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseModel> updatePayingStatus(PayingStatus payingStatus, Long orderID) throws OrderException {
+        int result = orderRepository.updatePayingStatus(payingStatus, orderID);
+        ResponseModel response;
+
+        if (result == 0) {
+            response = new ResponseModel("204", "Order not found", null);
+            return ResponseEntity.status(204).body(response);
+        }
+        else {
+            response = new ResponseModel("200", "Paying status updated", null);
             return ResponseEntity.status(200).body(response);
         }
     }
@@ -163,7 +188,7 @@ public class OrderServiceImpl implements OrderService {
 
             if (insert == 0) {
                 return ResponseEntity.status(500).body(new ResponseModel("500", "Failed to create customer", null));
-            } else {
+            } else  {
                 Customer customer1 = customerRepository.findCustomerByFullNameAndAddressAndPhoneNumber(
                         customerFullName,
                         customerAddress,
@@ -200,6 +225,30 @@ public class OrderServiceImpl implements OrderService {
         if (insert == 0) {
             return ResponseEntity.status(500).body(new ResponseModel("500", "Failed to create order", null));
         } else {
+
+            List<RequestCreateOrderDetail> orderDetails = requestCreateOrder.getOrderDetails();
+            order = orderRepository.findOrderByCustomerIDStoreIDEmployeeIDStartShippingTimeFee(customerID,
+                    requestCreateOrder.getStoreID(), employeeId, requestCreateOrder.getStartShippingTime(),
+                    requestCreateOrder.getFee());
+
+            Long orderID = order.getOrderID();
+
+            for (RequestCreateOrderDetail orderDetail : orderDetails) {
+                OrderDetails details = new OrderDetails();
+                details.setOrderID(orderID);
+                details.setNameOfProduct(orderDetail.getNameOfProduct());
+                details.setQuantityOfProduct(orderDetail.getQuantityOfProduct());
+                details.setPriceOfProduct(orderDetail.getPriceOfProduct());
+                details.setNoteOfProduct(orderDetail.getNoteOfProduct());
+
+
+                int insertDetail = orderRepository.createOrderDetail(details);
+
+                if (insertDetail == 0) {
+                    return ResponseEntity.status(500).body(new ResponseModel("500", "Failed to create order detail", null));
+                }
+            }
+
             return ResponseEntity.status(201).body(new ResponseModel("201", "Order created", null));
         }
     }

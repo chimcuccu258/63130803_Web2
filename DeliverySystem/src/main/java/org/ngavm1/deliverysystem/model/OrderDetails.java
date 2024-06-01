@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrderDetails {
     private Long orderID;
-    private Long productID;
+    private Long orderDetailID;
     private Long productTypeID;
-    private Long nameOfProduct;
+    private String nameOfProduct;
     private Integer quantityOfProduct;
     private Double priceOfProduct;
     private String noteOfProduct;

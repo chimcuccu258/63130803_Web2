@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.ngavm1.deliverysystem.utils.PayingStatus;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +23,5 @@ public class RequestCreateOrder {
     private Date estimatedTime;
     private Double fee;
     private PayingStatus payingStatus;
+    private List<RequestCreateOrderDetail> orderDetails;
 }

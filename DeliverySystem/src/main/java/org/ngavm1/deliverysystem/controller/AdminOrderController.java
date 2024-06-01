@@ -54,7 +54,8 @@ public class AdminOrderController {
 
     @PostMapping("/create-order")
     @Operation(summary = "Create order")
-    public ResponseEntity<ResponseModel> createOrder(@RequestBody RequestCreateOrder requestCreateOrder) throws OrderException, EmployeeException, CustomerException {
+    public ResponseEntity<ResponseModel> createOrder(@RequestBody RequestCreateOrder requestCreateOrder) throws
+            OrderException, EmployeeException, CustomerException {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String email = securityContext.getAuthentication().getName();
         return orderService.createOrder(requestCreateOrder, email);
