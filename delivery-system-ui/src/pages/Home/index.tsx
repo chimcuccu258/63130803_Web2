@@ -13,9 +13,8 @@ import {
 import { Avatar, Button, Flex, Layout, Menu, Space, Spin, theme } from "antd";
 import "./styles.css";
 import Order from "../Order";
-import Customer from "../Customer";
 import UserDetails from "./components/UserDetails";
-import SupplierScreen from '../Supplier/index';
+import SupplierScreen from "../Supplier/index";
 
 const { Header, Sider, Content } = Layout;
 
@@ -49,17 +48,14 @@ const Home: React.FC<HomeProps> = ({ isLoggedIn, onLogout, user }) => {
     }
   }, [user]);
 
-
   const renderContent = () => {
     switch (selectedMenuItem) {
       case "1":
         return <Employee user={user} />;
       case "2":
-        return <SupplierScreen/>;
+        return <SupplierScreen />;
       case "3":
         return <Order />;
-      case "4":
-        return <Customer />;
       default:
         return <Employee user={user} />;
     }
@@ -74,6 +70,7 @@ const Home: React.FC<HomeProps> = ({ isLoggedIn, onLogout, user }) => {
               style={{
                 padding: 10,
               }}
+              onClick={() => setIsModalVisible(true)}
             >
               <Avatar size="large" icon={<UserOutlined />} />
               <text
@@ -105,11 +102,6 @@ const Home: React.FC<HomeProps> = ({ isLoggedIn, onLogout, user }) => {
                   key: "3",
                   icon: <CarryOutOutlined />,
                   label: "Order",
-                },
-                {
-                  key: "4",
-                  icon: <UserOutlined />,
-                  label: "Customer",
                 },
               ]}
             />
