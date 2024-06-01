@@ -3,6 +3,7 @@ package org.ngavm1.deliverysystem.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.ngavm1.deliverysystem.exception.EmployeeException;
+import org.ngavm1.deliverysystem.payload.request.RequestEmployeeUpdate;
 import org.ngavm1.deliverysystem.payload.response.ResponseModel;
 import org.ngavm1.deliverysystem.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,11 @@ public class AdminEmployeeController {
     @Operation(summary = "Find employee by email")
     public ResponseEntity<ResponseModel> findEmployeeByEmail(@RequestParam String email) throws EmployeeException {
         return employeeService.findEmployeeByEmail(email);
+    }
+
+    @PostMapping("/update-employee")
+    @Operation(summary = "Update employee information")
+    public ResponseEntity<ResponseModel> updateEmployee(@RequestBody RequestEmployeeUpdate requestEmployeeUpdate) throws EmployeeException {
+        return employeeService.updateEmployee(requestEmployeeUpdate);
     }
 }

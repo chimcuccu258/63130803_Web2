@@ -9,6 +9,7 @@ import org.ngavm1.deliverysystem.model.Supplier;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
 import org.ngavm1.deliverysystem.payload.request.RequestSupplierSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeUpdate;
+import org.ngavm1.deliverysystem.payload.request.RequestSupplierUpdate;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -19,8 +20,8 @@ public interface SupplierMapper {
     @Select("SELECT * FROM Supplier")
     List<Supplier> findAllSupplier() throws SupplierException;
 
-    @Select("SELECT * FROM Supplier WHERE supplierCode = #{supplierCode}")
-    Supplier findSupplierBySupplierCode(String supplierCode) throws SupplierException;
+    @Select("SELECT * FROM Supplier WHERE supplierID = #{supplierID}")
+    Supplier findSupplierBySupplierId(Long supplierID) throws SupplierException;
 
     @Select("SELECT * FROM Supplier WHERE phoneNumber = #{phoneNumber}")
     Supplier findSupplierByPhoneNumber(String phoneNumber) throws SupplierException;
@@ -40,8 +41,8 @@ public interface SupplierMapper {
     @Insert("INSERT INTO Supplier (supplierName, email, address, phoneNumber, password) VALUES (#{supplierName}, #{email}, #{address}, #{phoneNumber}, #{password})")
     int insertSupplier(RequestSupplierSignup Supplier) throws SupplierException;
 
-    @Update("UPDATE Supplier SET address = #{address}, phoneNumber = #{phoneNumber} WHERE email = #{email}")
-    int updateSupplier(RequestEmployeeUpdate requestUpdate) throws SupplierException;
+    @Update("UPDATE Supplier SET address = #{address}, phoneNumber = #{phoneNumber} WHERE supplierID = #{supplierID}")
+    int updateSupplier(RequestSupplierUpdate requestSupplierUpdate) throws SupplierException;
 
     @Update("UPDATE Supplier SET password = #{newPassword} WHERE supplierID = #{supplierID}")
     int resetPassword(RequestResetPassword requestResetPassword) throws SupplierException, SQLIntegrityConstraintViolationException;

@@ -25,4 +25,16 @@ public class CustomerRepository {
         return customerMapper.findCustomerByPhoneNumber(phoneNumber);
     }
 
+    public Customer findByEmail(String email) throws CustomerException {
+        return customerMapper.findByEmail(email);
+    }
+
+    public Customer findCustomerByFullNameAndAddressAndPhoneNumber(String fullName, String address, String phoneNumber) throws CustomerException {
+        return customerMapper.findCustomerByFullNameAndAddressAndPhoneNumber(fullName, address, phoneNumber);
+    }
+
+    public int createCustomer(Customer customer) throws CustomerException {
+        return customerMapper.createCustomer(customer);
+    }
+
 }

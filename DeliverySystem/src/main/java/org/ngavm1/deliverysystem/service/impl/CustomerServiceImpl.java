@@ -31,4 +31,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
+    @Override
+    public Customer findByFullNameAndAddressAndPhoneNumber(String fullName, String address, String phoneNumber) throws CustomerException {
+        return customerRepository.findCustomerByFullNameAndAddressAndPhoneNumber(fullName, address, phoneNumber);
+    }
 }

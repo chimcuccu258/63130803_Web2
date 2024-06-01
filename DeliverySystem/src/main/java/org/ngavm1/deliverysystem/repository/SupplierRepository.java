@@ -7,6 +7,7 @@ import org.ngavm1.deliverysystem.model.Supplier;
 import org.ngavm1.deliverysystem.payload.request.RequestResetPassword;
 import org.ngavm1.deliverysystem.payload.request.RequestSupplierSignup;
 import org.ngavm1.deliverysystem.payload.request.RequestEmployeeUpdate;
+import org.ngavm1.deliverysystem.payload.request.RequestSupplierUpdate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -19,6 +20,10 @@ public class SupplierRepository {
 
     public List<Supplier> findAllSupplier() throws SupplierException {
         return supplierMapper.findAllSupplier();
+    }
+
+    public Supplier findSupplierBySupplierId(Long supplierID) throws SupplierException {
+        return supplierMapper.findSupplierBySupplierId(supplierID);
     }
 
     public Supplier findSupplierByPhoneNumber(String phoneNumber) throws SupplierException {
@@ -37,8 +42,8 @@ public class SupplierRepository {
         return supplierMapper.insertSupplier(requestSupplierSignup);
     }
 
-    public int updateSupplier(RequestEmployeeUpdate requestUpdate) throws SupplierException {
-        return supplierMapper.updateSupplier(requestUpdate);
+    public int updateSupplier(RequestSupplierUpdate requestSupplierUpdate) throws SupplierException {
+        return supplierMapper.updateSupplier(requestSupplierUpdate);
     }
 
     public boolean existsByEmail(String email) throws SupplierException {
