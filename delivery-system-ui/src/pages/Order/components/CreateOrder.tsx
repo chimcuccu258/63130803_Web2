@@ -7,6 +7,7 @@ import {
   DatePicker,
   Radio,
   InputNumber,
+  Select,
 } from "antd";
 
 interface CreateOrderProps {
@@ -22,7 +23,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({ open, onCancel, onAdd }) => {
   const onSubmit = async (values: any) => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token"); // Retrieve token from localStorage
+      const token = localStorage.getItem("token"); 
       if (!token) {
         throw new Error("No token found");
       }
@@ -33,7 +34,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({ open, onCancel, onAdd }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Include the token in the request headers
+            Authorization: `Bearer ${token}`, 
           },
           body: JSON.stringify({
             customerFullName: values.customerFullName,
@@ -45,7 +46,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({ open, onCancel, onAdd }) => {
             estimatedTime: values.estimatedTime.format(),
             fee: values.fee,
             payingStatus: values.payingStatus,
-            orderDetails: [], // Add order details here if available
+            orderDetails: [],
           }),
         }
       );
