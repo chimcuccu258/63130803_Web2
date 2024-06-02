@@ -209,6 +209,7 @@ public class OrderServiceImpl implements OrderService {
         Long employeeId = employee.getEmployeeID();
 
         Order order = new Order();
+
         order.setCustomerID(customerID);
         order.setSupplierID(requestCreateOrder.getSupplierID());
         order.setEmployeeID(employeeId);

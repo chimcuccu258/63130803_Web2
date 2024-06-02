@@ -46,7 +46,7 @@ public class AdminOrderController {
         return orderService.findOrderBySupplierID(supplierID);
     }
 
-    @GetMapping("/update-status")
+    @PostMapping("/update-status")
     @Operation(summary = "Update order status")
     public ResponseEntity<ResponseModel> updateOrderStatus(@RequestParam OrderStatus orderStatus, @RequestParam Long orderID) throws OrderException {
         return orderService.updateOrderStatus(orderStatus, orderID);
@@ -54,11 +54,16 @@ public class AdminOrderController {
 
     @PostMapping("/create-order")
     @Operation(summary = "Create order")
-    public ResponseEntity<ResponseModel> createOrder(@RequestBody RequestCreateOrder requestCreateOrder) throws
-            OrderException, EmployeeException, CustomerException {
+    public ResponseEntity<ResponseModel> createOrder(@RequestBody RequestCreateOrder requestCreateOrder) throws OrderException, EmployeeException, CustomerException {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String email = securityContext.getAuthentication().getName();
         return orderService.createOrder(requestCreateOrder, email);
+    }
+
+    @GetMapping("/find-by-id")
+    @Operation(summary = "Find order by ID")
+    public ResponseEntity<ResponseModel> findOrderById(@RequestParam Long orderID) throws OrderException {
+        return orderService.findOrderById(orderID);
     }
 
 }
